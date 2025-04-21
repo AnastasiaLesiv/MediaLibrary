@@ -1,0 +1,26 @@
+.create-folder-form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.save-folder-form{
+    display: flex;
+    justify-content: center;
+}
+
+.close-folder-form{
+    font-weight: bold;
+}
+
+.create-folder-input-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create-folder-input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

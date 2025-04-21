@@ -1,0 +1,4 @@
+<div class="user-files-view">
+    <button class="btn btn-primary user-files-view-create" routerLink="/createMedia" routerLinkActive="active" >Create media file</button>
+    <app-media-files-table [tablemediaFiles]="mediaFiles" [folderList]="folders" (refreshMediaFilesTable)="reloadMediaFiles()"/>
+</div>

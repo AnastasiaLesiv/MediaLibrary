@@ -1,0 +1,58 @@
+<div class="edit-media-form">
+  <h2>Edit form</h2>
+  <div class="form-control edit-media-form-fields">
+    <div>
+      <label for="title" class="form-label">Title</label>
+      <input [(ngModel)]="title" type="text" class="form-control" id="title">
+  
+      @if(mediaType === mediaTypes.Audio){
+        <label for="artist" class="form-label">Artist</label>
+        <input [(ngModel)]="audioModel.artist" type="text" class="form-control" id="artist">
+      } @else {
+        <label for="author" class="form-label">Author</label>
+        <input [(ngModel)]="author" type="text" class="form-control" id="author">
+      }
+  
+      <label for="format" class="form-label">Format</label>
+      <input [(ngModel)]="format" type="text" class="form-control" id="format">
+  
+      @if (mediaType === mediaTypes.Audio || mediaType === mediaTypes.Video) {
+        <label for="duration" class="form-label">Duration</label>
+          <input [(ngModel)]="duration" type="text" class="form-control" id="duration">
+      }
+      @if (mediaType === mediaTypes.Ebook) {
+        <label for="pageCount" class="form-label">Page Count</label>
+        <input [(ngModel)]="ebookModel.pageCount" type="text" class="form-control" id="pageCount">
+      }
+  
+      @if (categoryList.length > 0) {
+        <label for="categories" class="form-label">Categories</label>
+        <input class="form-control" list="categories-list" id="categories" [(ngModel)]="customCategory" />
+        <datalist id="categories-list">
+          @for(item of categoryList; track item.id){
+            <option [value]="item.categoryName"></option>
+          }
+        </datalist>
+      }
+    </div>
+ 
+    <div class="back-save-buttons">
+      <button class="btn btn-outline-danger" (click)="goBack()">Back</button>
+      <button class="btn btn-success" (click)="open(content, mediaTypes.Ebook)">Save</button>
+    </div>
+
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Edit mediafile</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  Are you sure you want to edit this mediafile?
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="modal.close('Confirm click')">Confirm</button>
+  <button type="button" class="btn btn-outline-danger" (click)="modal.close('Close click')">Close</button>
+</div>
+</ng-template>

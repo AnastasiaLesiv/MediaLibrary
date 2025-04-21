@@ -1,0 +1,13 @@
+<div class="folders-list">
+  <div>
+    <button type="button" class="btn btn-primary" (click)="showFolderCreationForm()">Create folder</button>
+    @if(showForm){
+      <app-create-folder-form class="create-folder-form" (successfullCreate)="refreshFolderList()" (hideFolderForm)="hideFolderForm()"/>
+    }
+  </div>
+ 
+  @for (item of foldersList; track item.id) {
+    <button type="button" class="btn btn-outline-success" routerLink="/folderView/{{item.id}}" routerLinkActive="active">{{item.name}}</button>
+    }  
+</div>
+

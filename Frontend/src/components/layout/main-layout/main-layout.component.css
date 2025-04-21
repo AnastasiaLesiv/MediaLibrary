@@ -1,0 +1,19 @@
+.break-line {
+  border-left: 2px solid rgb(0, 0, 0);
+}
+
+.apps-container{
+  display: flex;
+  height: 92%;
+  gap: 16px;
+  padding: 30px 30px 30px 30px;
+  background: linear-gradient(45deg, #000000, #C71585);
+}
+
+.wildcard-component{
+  width: 100%;
+}
+
+.folders-list-component{
+  width: 25%;
+}

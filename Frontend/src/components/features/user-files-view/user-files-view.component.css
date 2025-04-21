@@ -1,0 +1,9 @@
+.user-files-view{
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.user-files-view-create{
+    max-width: 164px;
+}

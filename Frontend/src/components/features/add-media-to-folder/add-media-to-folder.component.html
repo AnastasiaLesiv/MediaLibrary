@@ -1,0 +1,9 @@
+<div class="add-media-to-folder">
+  @for (item of foldersList; track item.id) {
+    @if(isMefiaFileInFolder(item)){
+      <button type="button" class="btn btn-outline-danger" (click)="removeMediaFromFolder(item.id)">{{item.name}}</button>
+    } @else{
+      <button type="button" class="btn btn-outline-success" (click)="addMediaToFolder(item.id)">{{item.name}}</button>
+    } 
+  } 
+</div>

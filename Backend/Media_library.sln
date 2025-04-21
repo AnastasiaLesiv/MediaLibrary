@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media_library", "Media_library\Media_library.csproj", "{BD4E9EBF-646D-4AA4-B17F-14938160D16D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD4E9EBF-646D-4AA4-B17F-14938160D16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD4E9EBF-646D-4AA4-B17F-14938160D16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD4E9EBF-646D-4AA4-B17F-14938160D16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD4E9EBF-646D-4AA4-B17F-14938160D16D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,22 @@
+.create-media-form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.media-type-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.back-save-buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
