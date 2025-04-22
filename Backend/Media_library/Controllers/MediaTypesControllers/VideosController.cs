@@ -1,21 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Media_library;
 using Media_library.Dtos;
 using Media_library.Dtos.ResponseDtos;
 using Media_library.Dtos.UpdateDtos.MediaTypesDtos;
 using Media_library.Entities.MediaTypes;
 using Media_library.Services.MediaTypesServices.Contracts;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace Media_library.Controllers
+namespace Media_library.Controllers.MediaTypesControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VideosController : ControllerBase
     {
         private readonly IVideoService _videoService;

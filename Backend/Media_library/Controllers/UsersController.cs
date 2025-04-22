@@ -12,7 +12,6 @@ namespace Media_library.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -23,12 +22,14 @@ namespace Media_library.Controllers
         }
         
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return Ok(await _userService.GetUsers());
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<UserDto>> GetUser(Guid id)
         {
             var user = await _userService.GetUserById(id);
@@ -37,6 +38,7 @@ namespace Media_library.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutUser(Guid id, UpdateUserDto? updateUserDto)
         {
             try
@@ -60,6 +62,7 @@ namespace Media_library.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             await _userService.DeleteUser(id);

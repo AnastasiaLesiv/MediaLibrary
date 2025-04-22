@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { CreateFolder } from '../interfaces/creation-dtos/create-folder';
 import { FolderDto } from '../interfaces/response-dtos/folder-dto';
 import { Observable } from 'rxjs';
-import { AudioDto } from '../interfaces/creation-dtos/audio-dto';
 import { AddAudioToFolder } from '../interfaces/creation-dtos/add-audio-to-folder';
 import { AddEbookToFolder } from '../interfaces/creation-dtos/add-ebook-to-folder';
 import { AddVideoToFolder } from '../interfaces/creation-dtos/add-video-to-folder';

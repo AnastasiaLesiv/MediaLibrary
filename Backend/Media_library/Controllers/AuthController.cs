@@ -28,7 +28,7 @@ namespace Media_library.Controllers
         }
         
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult<TokenResponseDto>> Login([FromBody] LoginDto loginDto)
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
             if (user is null)
@@ -65,9 +65,6 @@ namespace Media_library.Controllers
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user is null ? "" : user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user is null ? "" : user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user is null ? "" : user.Id.ToString()),
             };
 
             var key = new SymmetricSecurityKey(

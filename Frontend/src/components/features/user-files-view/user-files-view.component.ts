@@ -1,24 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MediaFilesTableComponent } from '../media-files-table/media-files-table.component';
 import { UsersService } from '../../../services/users.service';
 import { EbookDto } from '../../../interfaces/creation-dtos/ebook-dto';
 import { MediaFile } from '../../../interfaces/creation-dtos/media-file';
-import { MediaType } from '../../../enums/media-type';
+import { MediaType } from '../../../core/enums/media-type';
 import { VideoDto } from '../../../interfaces/creation-dtos/video-dto';
 import { ImageDto } from '../../../interfaces/creation-dtos/image-dto';
 import { AudioDto } from '../../../interfaces/creation-dtos/audio-dto';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FolderDto } from '../../../interfaces/response-dtos/folder-dto';
+import { CommonModule } from '@angular/common';
+import { AppGlobalConstants } from '../../../core/global/global-variables';
 
 @Component({
   selector: 'app-user-files-view',
-  imports: [MediaFilesTableComponent, RouterLink, RouterLinkActive],
+  imports: [MediaFilesTableComponent, RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './user-files-view.component.html',
   styleUrls: ['./user-files-view.component.css']
 })
 export class UserFilesViewComponent implements OnInit {
+  tableActionsTemplate!: TemplateRef<any>;
+
   mediaFiles: MediaFile[] = [];
   folders: FolderDto[] = [];
+
+  private userId = sessionStorage.getItem(AppGlobalConstants.sessionStorageUserId)!;
   
   constructor(private usersService: UsersService) { }
 
@@ -27,7 +33,7 @@ export class UserFilesViewComponent implements OnInit {
   }
 
   reloadMediaFiles(){
-    this.usersService.getUserById('EF9B9230-51B7-4270-513D-08DD80D8D7F1').subscribe(response => {
+    this.usersService.getUserById(this.userId).subscribe(response => {
       this.transformToMediaFileList(response.audios!, response.images!, response.videos!, response.ebooks!);
       this.folders = response.folders!;
     });
@@ -95,5 +101,9 @@ export class UserFilesViewComponent implements OnInit {
       pageCount: e.pageCount
     };
     return mediaFile;
+  }
+
+  handleTableActionsTemplate(template: TemplateRef<any>) {
+    this.tableActionsTemplate = template;
   }
 }

@@ -1,6 +1,6 @@
 <div class="folders-list">
   <div>
-    <button type="button" class="btn btn-primary" (click)="showFolderCreationForm()">Create folder</button>
+    <button type="button" class="btn btn-secondary" (click)="showFolderCreationForm()">Create folder</button>
     @if(showForm){
       <app-create-folder-form class="create-folder-form" (successfullCreate)="refreshFolderList()" (hideFolderForm)="hideFolderForm()"/>
     }

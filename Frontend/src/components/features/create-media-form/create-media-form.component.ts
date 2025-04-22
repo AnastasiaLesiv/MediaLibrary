@@ -6,7 +6,7 @@ import { Ebook } from '../../../interfaces/creation-models/ebook';
 import { FormsModule } from '@angular/forms';
 import { CategoryDto } from '../../../interfaces/creation-dtos/category-dto';
 import { CategoryService } from '../../../services/category.service';
-import { MediaType } from '../../../enums/media-type';
+import { MediaType } from '../../../core/enums/media-type';
 import { ImageService } from '../../../services/image.service';
 import { VideoService } from '../../../services/video.service';
 import { EbookService } from '../../../services/ebook.service';
@@ -14,6 +14,7 @@ import { AudioService } from '../../../services/audio.service';
 import { Router } from '@angular/router';
 import { CreateCategoryDto } from '../../../interfaces/creation-dtos/create-category-dto';
 import { Observable, of } from 'rxjs';
+import { AppGlobalConstants } from '../../../core/global/global-variables';
 
 @Component({
   selector: 'app-create-media-form',
@@ -39,6 +40,8 @@ export class CreateMediaFormComponent implements OnInit {
 
   mediaTypes = MediaType;
 
+  private userId = sessionStorage.getItem(AppGlobalConstants.sessionStorageUserId)!;
+
   constructor(private categoryService: CategoryService,
               private audioService: AudioService,
               private imageService: ImageService,
@@ -50,7 +53,7 @@ export class CreateMediaFormComponent implements OnInit {
       title: undefined,
       format: undefined,
       duration: undefined,
-      userId: 'EF9B9230-51B7-4270-513D-08DD80D8D7F1', //If we have login, it would be logged in User id
+      userId: this.userId,
       categoryId: undefined,
       uploadDate: new Date(Date.now())
     }
@@ -58,7 +61,7 @@ export class CreateMediaFormComponent implements OnInit {
       author: undefined,
       title: undefined,
       format: undefined,
-      userId: 'EF9B9230-51B7-4270-513D-08DD80D8D7F1', //If we have login, it would be logged in User id
+      userId: this.userId,
       categoryId: undefined,
       uploadDate: new Date(Date.now())
     }
@@ -67,7 +70,7 @@ export class CreateMediaFormComponent implements OnInit {
       title: undefined,
       format: undefined,
       duration: undefined,
-      userId: 'EF9B9230-51B7-4270-513D-08DD80D8D7F1', //If we have login, it would be logged in User id
+      userId: this.userId,
       categoryId: undefined,
       uploadDate: new Date(Date.now())
     }
@@ -76,7 +79,7 @@ export class CreateMediaFormComponent implements OnInit {
       title: undefined,
       format: undefined,
       pageCount: undefined,
-      userId: 'EF9B9230-51B7-4270-513D-08DD80D8D7F1', //If we have login, it would be logged in User id
+      userId: this.userId,
       categoryId: undefined,
       uploadDate: new Date(Date.now())
     }

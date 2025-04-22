@@ -1,29 +1,33 @@
 <div class="media-files-table">
     
-    <div class="media-files-table-filters">
-        <div class="media-files-table-filters-media-type">
-            <div ngbDropdown class="d-inline-block">
-               <button class="btn btn-outline-secondary" id="mediaTypeFilter" ngbDropdownToggle>
-                   {{ selectedMediaType ? getMediaTypeName(selectedMediaType) : 'Media Type' }}
-               </button>
-               <div ngbDropdownMenu aria-labelledby="mediaTypeFilter">
-                   <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Audio)">Audio</button> 
-                   <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Ebook)">Ebook</button>
-                   <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Image)">Image</button>
-                   <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Video)">Video</button>
-               </div>
-           </div>
-           @if (selectedMediaType) {
-               <button class="btn btn-outline-danger btn-sm" (click)="clearMediaTypeFilter()">✕</button>
-           }
-       </div>
-       <div>
-            <form class="media-files-table-filters-search">
-                <label for="table-filtering-search" class="col-form-label" style="color: whitesmoke;">Search:</label>
-                <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
-            </form>
-       </div>
-    </div>
+    <ng-template #actions>
+        <div class="media-files-table-filters">
+            
+            <div class="media-files-table-filters-media-type">
+                <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-secondary" id="mediaTypeFilter" ngbDropdownToggle>
+                    {{ selectedMediaType ? getMediaTypeName(selectedMediaType) : 'Media Type' }}
+                </button>
+                <div ngbDropdownMenu aria-labelledby="mediaTypeFilter">
+                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Audio)">Audio</button> 
+                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Ebook)">Ebook</button>
+                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Image)">Image</button>
+                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Video)">Video</button>
+                </div>
+            </div>
+            @if (selectedMediaType) {
+                <button class="btn btn-outline-danger btn-sm" (click)="clearMediaTypeFilter()">✕</button>
+            }
+        </div>
+        <div>
+                <form class="media-files-table-filters-search">
+                    <label for="table-filtering-search" class="col-form-label">Search:</label>
+                    <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+                </form>
+        </div>
+        </div>
+    </ng-template>
+    
 
     <table class="media-files-table-data">
         <thead>

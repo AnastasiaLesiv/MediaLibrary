@@ -1,0 +1,9 @@
+<div class="login-form">
+  <label for="userName" class="form-label">User name</label>
+  <input [(ngModel)]="loginModel.userName" type="text" class="form-control custom-input" id="userName">
+
+  <label for="password" class="form-label">Password</label>
+  <input [(ngModel)]="loginModel.password" type="text" class="form-control custom-input" id="password">
+
+  <button routerLink="''" routerLinkActive="activer" (click)="login()">Login</button>
+</div>

@@ -3,7 +3,7 @@ import { MediaFilesTableComponent } from '../media-files-table/media-files-table
 import { Router } from '@angular/router';
 import { EbookDto } from '../../../interfaces/creation-dtos/ebook-dto';
 import { MediaFile } from '../../../interfaces/creation-dtos/media-file';
-import { MediaType } from '../../../enums/media-type';
+import { MediaType } from '../../../core/enums/media-type';
 import { VideoDto } from '../../../interfaces/creation-dtos/video-dto';
 import { ImageDto } from '../../../interfaces/creation-dtos/image-dto';
 import { AudioDto } from '../../../interfaces/creation-dtos/audio-dto';

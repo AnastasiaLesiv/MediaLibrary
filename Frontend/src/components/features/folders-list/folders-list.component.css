@@ -6,8 +6,6 @@
 
 .create-folder-form{
     position: absolute;
-    outline: 1px solid black;
     border-radius: 8px;
     background-color: #ebebeb;
-    padding: 8px;
 }

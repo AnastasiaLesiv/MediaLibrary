@@ -31,5 +31,4 @@ constructor(private client: HttpClient) { }
   deleteEbook(id: number){
     return this.client.delete(`${this.baseUrl}/api/Ebooks/${id}`);
   }
-
 }

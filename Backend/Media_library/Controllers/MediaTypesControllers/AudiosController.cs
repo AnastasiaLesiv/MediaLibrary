@@ -1,15 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Media_library.Dtos;
 using Media_library.Dtos.ResponseDtos;
 using Media_library.Dtos.UpdateDtos.MediaTypesDtos;
 using Media_library.Entities.MediaTypes;
 using Media_library.Services.MediaTypesServices.Contracts;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace Media_library.Controllers
+namespace Media_library.Controllers.MediaTypesControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AudiosController : ControllerBase
     {
         private readonly IAudioService _audioService;

@@ -5,6 +5,8 @@
     padding: 24px;
     gap: 16px;
     justify-content: space-between;
+    background: linear-gradient(45deg,#fae4eb 0%, #d4f7f5 100%);
+
 }
 
 .media-type-buttons{
@@ -19,4 +21,17 @@
     display: flex;
     justify-content: flex-end;
     gap: 8px;
+}
+
+.button-success{
+    background: #2c6e73;
+    color: rgb(228, 226, 226);
+}
+
+.custom-input {
+    color: #f7ecec; /* Червоний колір тексту */
+    background-color: #849b9d; /* Світло-сірий фон */
+    border: 1px solid #cccccc; /* Сіра межа */
+    padding: 8px; /* Внутрішні відступи */
+    font-size: 16px; /* Розмір шрифту */
 }

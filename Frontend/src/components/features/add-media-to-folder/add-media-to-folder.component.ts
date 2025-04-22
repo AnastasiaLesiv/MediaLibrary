@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FolderDto } from '../../../interfaces/response-dtos/folder-dto';
 import { FolderService } from '../../../services/folder.service';
 import { AddAudioToFolder } from '../../../interfaces/creation-dtos/add-audio-to-folder';
-import { MediaType } from '../../../enums/media-type';
+import { MediaType } from '../../../core/enums/media-type';
 import { AddEbookToFolder } from '../../../interfaces/creation-dtos/add-ebook-to-folder';
 import { AddImageToFolder } from '../../../interfaces/creation-dtos/add-image-to-folder';
 import { AddVideoToFolder } from '../../../interfaces/creation-dtos/add-video-to-folder';

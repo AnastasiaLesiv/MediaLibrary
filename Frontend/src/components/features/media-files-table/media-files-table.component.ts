@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, PipeTransform, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, PipeTransform, SimpleChanges, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { MediaFile } from '../../../interfaces/creation-dtos/media-file';
-import { MediaType } from '../../../enums/media-type';
+import { MediaType } from '../../../core/enums/media-type';
 import { DatePipe, SlicePipe } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AudioService } from '../../../services/audio.service';
@@ -22,6 +22,9 @@ import { map, Observable, of, startWith } from 'rxjs';
   styleUrls: ['./media-files-table.component.css']
 })
 export class MediaFilesTableComponent{
+  @ViewChild('actions', { static: true }) actions!: TemplateRef<any>;
+  @Output() actionsReady = new EventEmitter<TemplateRef<any>>();
+
   @Input() tablemediaFiles: MediaFile[] = [];
   @Input() folderList: FolderDto[] = [];
   @Output() refreshMediaFilesTable = new EventEmitter<boolean>();
@@ -47,12 +50,17 @@ export class MediaFilesTableComponent{
     });
   }
 
+  ngAfterViewInit() {
+    this.actionsReady.emit(this.actions);
+  }
+  
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tablemediaFiles']) {
       this.filteredMediaFiles = this.tablemediaFiles;
       this.applyFilter();
     }
   }
+  
 
   deleteMediaFile(id: number, mediaTypeToDelete: MediaType): void{
     if(mediaTypeToDelete === this.mediaTypes.Audio){

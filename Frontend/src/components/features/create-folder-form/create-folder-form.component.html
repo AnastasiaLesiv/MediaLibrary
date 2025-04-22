@@ -2,12 +2,12 @@
   <div class="create-folder-input">
     <div class="create-folder-input-header">
       <label for="folder-name">Folder name</label>
-      <button class="btn btn-outline-danger close-folder-form" (click)="hideFolder()">X</button>
+      <button class="btn btn-outline-danger btn-sm close-folder-form" (click)="hideFolder()">✕</button>
     </div>
     <input [(ngModel)]="folderModel.name" type="text" class="form-control" id="folder-name">
   </div>
   <div class="save-folder-form">
-    <button class="btn btn-outline-primary" (click)="createFolder()">Save</button>
+    <button class="btn btn-outline-secondary" (click)="createFolder()">Save</button>
   </div>
 </div>
 

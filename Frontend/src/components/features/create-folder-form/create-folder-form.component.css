@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    background-color: #ecc7c2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
 }
 
 .save-folder-form{
@@ -10,17 +15,22 @@
 }
 
 .close-folder-form{
-    font-weight: bold;
+    position: absolute;
+    top: 7%; /* Відстань від верхнього краю */
+    right: 4%;
+    border-radius: 8px;
 }
 
 .create-folder-input-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: #706f6f;
+    font-weight: bold;
 }
 
 .create-folder-input {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 15px;
 }

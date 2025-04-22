@@ -1,6 +1,6 @@
 import { Component, computed, input, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MediaType } from '../../../enums/media-type';
+import { MediaType } from '../../../core/enums/media-type';
 import { AudioEdit } from '../../../interfaces/edition-models/audio-edit';
 import { ImageEdit } from '../../../interfaces/edition-models/image-edit';
 import { EbookEdit } from '../../../interfaces/edition-models/ebook-edit';

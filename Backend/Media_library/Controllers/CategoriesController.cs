@@ -13,12 +13,14 @@ using Media_library.Dtos.ResponseDtos;
 using Media_library.Entities;
 using AutoMapper;
 using Media_library.Dtos.ResponseDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Media_library.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         private readonly Context _context;
