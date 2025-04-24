@@ -7,7 +7,7 @@ namespace Media_library.Entities;
 
 public class User : IdentityUser<Guid>
 {
-    public DateTime RegistrationDate { get; set; }
+    public DateTime RegistrationDate { get; set; } = DateTime.Now;
     
     [Required]
     public string FullName { get; set; }

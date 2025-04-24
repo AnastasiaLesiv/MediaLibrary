@@ -18,7 +18,7 @@ public class UserService : IUserService
         _mapper = mapper;
     }
     
-    public async Task<List<User>> GetUsers()
+    public async Task<IEnumerable<User>> GetUsers()
     {
         return await _userRepository.GetUsers();
     }
@@ -43,12 +43,10 @@ public class UserService : IUserService
         }
             
         user.UserName = updateUserDto.UserName;
-       //user.Password = updateUserDto.Password;UserName = createUserDto.UserName,
-       user.FullName = updateUserDto.FullName;
-       user.Email = updateUserDto.Email;
+        user.FullName = updateUserDto.FullName;
+        user.Email = updateUserDto.Email;
         
-       
-        await _userRepository.PutUser(user);
+       await _userRepository.PutUser(user, updateUserDto.Password);
     }
     public async Task<User> PostUser(CreateUserDto createUserDto)
     {
@@ -61,7 +59,6 @@ public class UserService : IUserService
             UserName = createUserDto.UserName,
             FullName = createUserDto.FullName,
             Email = createUserDto.Email,
-            RegistrationDate = createUserDto.RegistrationDate
         };
 
         await _userRepository.PostUser(entityUser, createUserDto.Password);
@@ -78,5 +75,16 @@ public class UserService : IUserService
         }
         
         await _userRepository.DeleteUser(user);
+    }
+
+    public async Task<UserDto> GetUserOwnData(Guid userId)
+    {
+        return _mapper.Map<UserDto>(await _userRepository.GetUserOwnData(userId));
+    }
+
+    public async Task<IEnumerable<FolderDto?>> GetUserFolders(Guid userId)
+    {
+        var folders = await _userRepository.GetUserFolders(userId);
+        return _mapper.Map<IEnumerable<FolderDto>>(folders);
     }
 }

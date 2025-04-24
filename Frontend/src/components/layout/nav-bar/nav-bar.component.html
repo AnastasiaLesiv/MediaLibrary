@@ -1,18 +1,22 @@
-<div class="nav-style">
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
+<nav>
+  <div class="navbar-base">
     <a class="navbar-brand" routerLink="" routerLinkActive="activer" >MediaLibrary</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="navbar-items">
+      <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="activer">Home</a>
+          <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="active">Home</a>
         </li>
       </ul>
-      <!--<img src="../../assets/images/avatar.png" alt="Avatar" class="avatar d-flex"> -->
+      <div ngbDropdown class="d-inline-block">
+        <button class="navbar-user-profile-button" id="userProfile" ngbDropdownToggle>
+            {{fullName}}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="userProfile">
+            <button ngbDropdownItem routerLink="/editProfile" routerLinkActive="active">Edit profile</button>
+            <button ngbDropdownItem (click)="deleteProfile()">Delete profile</button> 
+            <button ngbDropdownItem (click)="logOut()">Log Out</button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
-</div>

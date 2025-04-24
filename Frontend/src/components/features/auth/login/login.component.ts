@@ -3,12 +3,12 @@ import { LoginDto } from '../../../../interfaces/auth/login-dto';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../services/auth.service';
 import { AppGlobalConstants } from '../../../../core/global/global-variables';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
-  imports:[FormsModule],
+  imports:[FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

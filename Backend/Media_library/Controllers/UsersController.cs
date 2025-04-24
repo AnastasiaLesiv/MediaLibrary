@@ -1,4 +1,5 @@
 
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Media_library.Dtos;
@@ -7,11 +8,13 @@ using Media_library.Dtos.UpdateDtos;
 using Media_library.Entities;
 using Media_library.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Media_library.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -22,14 +25,12 @@ namespace Media_library.Controllers
         }
         
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return Ok(await _userService.GetUsers());
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<UserDto>> GetUser(Guid id)
         {
             var user = await _userService.GetUserById(id);
@@ -38,7 +39,6 @@ namespace Media_library.Controllers
         }
         
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> PutUser(Guid id, UpdateUserDto? updateUserDto)
         {
             try
@@ -53,21 +53,30 @@ namespace Media_library.Controllers
             return NoContent();
         }
 
-        [HttpPost]
-        public async Task<ActionResult<User>> CeateUser(CreateUserDto createUserDto)
-        {
-            var user  = await _userService.PostUser(createUserDto);
-            
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             await _userService.DeleteUser(id);
             
             return NoContent();
+        }
+
+        [HttpGet("folders")]
+        public async Task<ActionResult<IEnumerable<FolderDto>>> GetUserFolders()
+        {
+            var userId = HttpContext.User?.Claims?.FirstOrDefault(c => c.Type ==  ClaimTypes.NameIdentifier);
+            var folders = await _userService.GetUserFolders(Guid.Parse(userId.Value));
+            
+            return Ok(folders);
+        }
+        
+        [HttpGet("me")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUserData()
+        {
+            var userId = HttpContext.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            var userData = await _userService.GetUserOwnData(Guid.Parse(userId.Value));
+            
+            return Ok(userData);
         }
 
     }

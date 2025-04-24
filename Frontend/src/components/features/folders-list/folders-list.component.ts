@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FolderDto } from '../../../interfaces/response-dtos/folder-dto';
 import { CreateFolderFormComponent } from '../create-folder-form/create-folder-form.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-folders-list',
@@ -14,7 +14,7 @@ export class FoldersListComponent implements OnInit {
   @Output() refreshFolderData= new EventEmitter<boolean>();
   showForm: boolean = false
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -25,6 +25,7 @@ export class FoldersListComponent implements OnInit {
 
   refreshFolderList(){
     this.refreshFolderData.emit();
+    this.router.navigateByUrl("");
   }
 
   hideFolderForm(){

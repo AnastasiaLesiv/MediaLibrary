@@ -1,0 +1,59 @@
+/* Центрування всієї сторінки */
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #a8edea, #fed6e3);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Сама форма */
+  .register-form {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Мітки */
+  .form-label {
+    font-weight: 500;
+    color: #2c6e73;
+    margin-bottom: 4px;
+  }
+  
+  /* Інпути */
+  .custom-input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s;
+  }
+  
+  .custom-input:focus {
+    outline: none;
+    border-color: #c3aed6;
+    box-shadow: 0 0 5px #c3aed6;
+  }
+  
+  /* Кнопка */
+  button {
+    background-color: #c3aed6;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #b39ddb;
+  }
+  

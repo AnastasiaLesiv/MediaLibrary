@@ -5,7 +5,7 @@
       <label for="title" class="form-label">Title</label>
       <input [(ngModel)]="title" type="text" class="form-control" id="title">
   
-      @if(mediaType === mediaTypes.Audio){
+      @if(selectedMediaType === mediaTypes.Audio){
         <label for="artist" class="form-label">Artist</label>
         <input [(ngModel)]="audioModel.artist" type="text" class="form-control" id="artist">
       } @else {
@@ -16,11 +16,11 @@
       <label for="format" class="form-label">Format</label>
       <input [(ngModel)]="format" type="text" class="form-control" id="format">
   
-      @if (mediaType === mediaTypes.Audio || mediaType === mediaTypes.Video) {
+      @if (selectedMediaType === mediaTypes.Audio || selectedMediaType === mediaTypes.Video) {
         <label for="duration" class="form-label">Duration</label>
           <input [(ngModel)]="duration" type="text" class="form-control" id="duration">
       }
-      @if (mediaType === mediaTypes.Ebook) {
+      @if (selectedMediaType === mediaTypes.Ebook) {
         <label for="pageCount" class="form-label">Page Count</label>
         <input [(ngModel)]="ebookModel.pageCount" type="text" class="form-control" id="pageCount">
       }
@@ -38,7 +38,7 @@
  
     <div class="back-save-buttons">
       <button class="btn btn-outline-danger" (click)="goBack()">Back</button>
-      <button class="btn btn-success" (click)="open(content, mediaTypes.Ebook)">Save</button>
+      <button class="btn btn-success" (click)="open(content, selectedMediaType!)">Save</button>
     </div>
 
 </div>

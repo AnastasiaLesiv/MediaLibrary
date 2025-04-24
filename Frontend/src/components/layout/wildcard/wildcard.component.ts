@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-wildcard',
   imports: [RouterOutlet],
-  templateUrl: './wildcard.component.html',
+  templateUrl: './wildcard.component.html', 
   styleUrls: ['./wildcard.component.css']
 })
 export class WildcardComponent implements OnInit {

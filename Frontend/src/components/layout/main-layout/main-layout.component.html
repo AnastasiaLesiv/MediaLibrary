@@ -1,12 +1,14 @@
 <div style="height:100%">
-  <app-nav-bar />
+  <app-nav-bar [fullName]="userData?.fullName"/>
   <div class="apps-container">
-    <div class="folders-list-component" >
-      <app-folders-list [foldersList]="userData!.folders!" (refreshFolderData)="getUserData()"/>
-    </div>
-    <div class="break-line"></div>
-      <div class="wildcard-component">
-        <app-wildcard /> 
-      </div>   
+    @if (!isEditFormVisible) {
+      <div class="folders-list-component" >
+        <app-folders-list [foldersList]="userData!.folders!" (refreshFolderData)="getUserData()" />
+      </div>
+      <div class="break-line"></div>
+    }
+    <div class="wildcard-component">
+      <app-wildcard/> 
+    </div>   
   </div>
 </div>

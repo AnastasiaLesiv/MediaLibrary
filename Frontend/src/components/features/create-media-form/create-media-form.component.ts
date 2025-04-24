@@ -114,7 +114,7 @@ export class CreateMediaFormComponent implements OnInit {
           this.audioService.postAudio(this.audioModel).subscribe(response => this.goBack());
         });
         break;
-      case this.mediaTypes.Ebook:
+      case this.mediaTypes.Image:
         this.imageModel.title = this.title;
         this.imageModel.author = this.author;
         this.imageModel.format = this.format;
@@ -123,7 +123,7 @@ export class CreateMediaFormComponent implements OnInit {
           this.imageService.postImage(this.imageModel).subscribe(response => this.goBack());
         });
         break;
-      case this.mediaTypes.Image:
+      case this.mediaTypes.Video:
         this.videoModel.title = this.title;
         this.videoModel.author = this.author;
         this.videoModel.duration = this.duration;
@@ -133,7 +133,7 @@ export class CreateMediaFormComponent implements OnInit {
           this.videoService.postVideo(this.videoModel).subscribe(response => this.goBack());
         });
         break;
-      case this.mediaTypes.Video:
+      case this.mediaTypes.Ebook:
         this.ebookModel.title = this.title;
         this.ebookModel.author = this.author;
         this.ebookModel.format = this.format;

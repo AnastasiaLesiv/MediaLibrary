@@ -24,7 +24,9 @@ import { CreateCategoryDto } from '../../../interfaces/creation-dtos/create-cate
   styleUrls: ['./edit-media-form.component.css']
 })
 export class EditMediaFormComponent implements OnInit {
-  @Input() mediaType?: MediaType;
+  @Input() set mediaType(mediaType: string) {
+    this.selectedMediaType = parseInt(mediaType);
+  }
   @Input() id?: number;
 
   audioModel: AudioEdit;
@@ -42,6 +44,7 @@ export class EditMediaFormComponent implements OnInit {
   categoryList: CategoryDto[] = []
 
   mediaTypes = MediaType;
+  selectedMediaType?: MediaType;
 
   constructor(private toastr: ToastrService,
               private audioService: AudioService,
@@ -88,13 +91,14 @@ export class EditMediaFormComponent implements OnInit {
     .subscribe(response => {
       this.categoryList = response;
     })
-    switch(this.mediaType!){
+    switch(this.selectedMediaType){
       case MediaType.Audio:
         this.audioService.getAudioByid(this.id!)
           .subscribe(response => {
             this.title = response.title;
             this.format = response.format;
             this.duration = response.duration;
+            this.customCategory = response.categoryName;
             this.audioModel = {
               artist: response.artist,
               title: response.title,
@@ -111,6 +115,7 @@ export class EditMediaFormComponent implements OnInit {
             this.title = response.title;
             this.author = response.author;
             this.format = response.format;
+            this.customCategory = response.categoryName;
             this.imageModel = {
               author: response.author,
               title: response.title,
@@ -127,6 +132,7 @@ export class EditMediaFormComponent implements OnInit {
             this.author = response.author;
             this.format = response.format;
             this.duration = response.duration;
+            this.customCategory = response.categoryName;
             this.videoModel = {
               author: response.author,
               title: response.title,
@@ -143,6 +149,7 @@ export class EditMediaFormComponent implements OnInit {
             this.title = response.title;
             this.author = response.author;
             this.format = response.format;
+            this.customCategory = response.categoryName;
             this.ebookModel = {
               author: response.author,
               title: response.title,

@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FolderService } from '../../../services/folder.service';
 import { CreateFolder } from '../../../interfaces/creation-dtos/create-folder';
 import { FormsModule } from '@angular/forms';
+import { AppGlobalConstants } from '../../../core/global/global-variables';
 
 @Component({
   selector: 'app-create-folder-form',
@@ -14,10 +15,12 @@ export class CreateFolderFormComponent implements OnInit {
   @Output() successfullCreate = new EventEmitter<boolean>();
   @Output() hideFolderForm = new EventEmitter<boolean>();
 
+  private userId = sessionStorage.getItem(AppGlobalConstants.sessionStorageUserId)!;
+
   constructor(private folderService: FolderService) { 
     this.folderModel = {
       name: undefined,
-      userId: 'EF9B9230-51B7-4270-513D-08DD80D8D7F1'
+      userId: this.userId
     }
   }
 
@@ -26,7 +29,10 @@ export class CreateFolderFormComponent implements OnInit {
 
   createFolder(){
     this.folderService.postFolder(this.folderModel)
-      .subscribe(response => this.successfullCreate.emit());
+      .subscribe(response => {
+        this.hideFolder();
+        this.successfullCreate.emit()
+      });
   }
 
   hideFolder(){

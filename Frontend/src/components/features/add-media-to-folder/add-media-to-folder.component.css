@@ -3,3 +3,38 @@
     flex-direction: column;
     gap: 8px;
 }
+.folder-button-to-add{
+    max-width: 30px;
+    max-height: 50px;
+    background-color: #f1a39a00;
+    color: #0d5e5e;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.folder-button-to-remove{
+    max-width: 30px;
+    max-height: 50px;
+    background-color: #f1a39a00;
+    color: #c34867;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.add-to-folder-button{
+    max-width: 30px;
+    max-height: 50px;
+    background-color: #f1a39a00;
+    color: #0d5e5e;
+    border: none;
+    border-radius: 8px;
+    font-size: 30px;
+    text-align: center;
+}
+.add-to-folder-button::after{
+    display: none !important;
+}

@@ -1,0 +1,18 @@
+<div class="form-container">
+  <label for="userName" class="form-label">User Name</label>
+  <input [(ngModel)]="userModel.userName" type="text" class="form-control custom-input" id="userName">
+
+  <label for="fullName" class="form-label">Full Name</label>
+  <input [(ngModel)]="userModel.fullName" type="text" class="form-control custom-input" id="fullName">
+
+  <label for="email" class="form-label">Email</label>
+  <input [(ngModel)]="userModel.email" type="text" class="form-control custom-input" id="email">
+  
+  <label for="password" class="form-label">Password</label>
+  <input [(ngModel)]="userModel.password" type="text" class="form-control custom-input" id="password">
+   
+  <div class="back-save-buttons">
+    <button class="btn btn-outline-danger" (click)="close()">Back</button>
+    <button class="btn button-success" (click)="updateProfile()">Save</button>
+  </div>
+</div>

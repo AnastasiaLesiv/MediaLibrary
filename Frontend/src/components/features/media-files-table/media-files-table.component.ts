@@ -11,7 +11,6 @@ import { NgbDropdownModule, NgbHighlight, NgbModal, NgbPaginationModule } from '
 import { FolderDto } from '../../../interfaces/response-dtos/folder-dto';
 import { AddMediaToFolderComponent } from "../add-media-to-folder/add-media-to-folder.component";
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { map, Observable, of, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-media-files-table',
@@ -22,15 +21,10 @@ import { map, Observable, of, startWith } from 'rxjs';
   styleUrls: ['./media-files-table.component.css']
 })
 export class MediaFilesTableComponent{
-  @ViewChild('actions', { static: true }) actions!: TemplateRef<any>;
-  @Output() actionsReady = new EventEmitter<TemplateRef<any>>();
-
   @Input() tablemediaFiles: MediaFile[] = [];
   @Input() folderList: FolderDto[] = [];
   @Output() refreshMediaFilesTable = new EventEmitter<boolean>();
   mediaTypes = MediaType;
-
-  showFoldersList: Map<number,boolean> = new Map<number,boolean>;
 
   page: number = 1;
   pageSize: number = 5;
@@ -49,10 +43,6 @@ export class MediaFilesTableComponent{
       this.filteredMediaFiles = this.search(text);
     });
   }
-
-  ngAfterViewInit() {
-    this.actionsReady.emit(this.actions);
-  }
   
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tablemediaFiles']) {
@@ -60,7 +50,6 @@ export class MediaFilesTableComponent{
       this.applyFilter();
     }
   }
-  
 
   deleteMediaFile(id: number, mediaTypeToDelete: MediaType): void{
     if(mediaTypeToDelete === this.mediaTypes.Audio){
@@ -79,11 +68,6 @@ export class MediaFilesTableComponent{
 
   refreshMediaFiles(){
     this.refreshMediaFilesTable.emit();
-  }
-
-  showFoldersListForm(mediaFileId: number){
-    var oldValue = this.showFoldersList.get(mediaFileId);
-    this.showFoldersList?.set(mediaFileId, !oldValue)
   }
 
   open(content: TemplateRef<any>, id: number, mediaType: MediaType) {

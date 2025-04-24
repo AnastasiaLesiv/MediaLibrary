@@ -1,9 +1,8 @@
 <div class="user-files-view">
-    <div class="button-row">
-        <button class="user-files-view-create" routerLink="/createMedia" routerLinkActive="active" >Create media file</button>
-        <ng-container *ngIf="tableActionsTemplate">
-            <ng-container *ngTemplateOutlet="tableActionsTemplate"></ng-container>
-        </ng-container>
-    </div>
-    <app-media-files-table [tablemediaFiles]="mediaFiles" [folderList]="folders" (refreshMediaFilesTable)="reloadMediaFiles()" (actionsReady)="handleTableActionsTemplate($event)"/>
+    <app-media-files-table 
+        [tablemediaFiles]="mediaFiles" 
+        [folderList]="folders"
+        (refreshMediaFilesTable)="reloadMediaFiles()"> 
+            <button class="user-files-view-create" routerLink="/createMedia" routerLinkActive="active" >Create media file</button>
+    </app-media-files-table>
 </div>

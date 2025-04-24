@@ -1,11 +1,36 @@
 .folders-list{
     display: flex;
     flex-direction: column;
-    gap: 8px
+    gap: 16px;
+    height: 100%;
 }
 
 .create-folder-form{
     position: absolute;
     border-radius: 8px;
     background-color: #ebebeb;
+}
+
+.button-folder{
+    background-color: #f1a39a00;
+    color: #e37d72;
+    border: 1px solid #dd6456;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+.button-folder:hover{
+    background-color: #f1a39a;
+    color: white;
+    border: 1px solid #dd645600;
+}
+
+.folders-list-data{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: scroll;
+}
+
+.folders-list-data::-webkit-scrollbar{
+    display: none;
 }

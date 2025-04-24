@@ -1,9 +1,14 @@
-<div class="add-media-to-folder">
-  @for (item of foldersList; track item.id) {
-    @if(isMefiaFileInFolder(item)){
-      <button type="button" class="btn btn-outline-danger" (click)="removeMediaFromFolder(item.id)">{{item.name}}</button>
-    } @else{
-      <button type="button" class="btn btn-outline-success" (click)="addMediaToFolder(item.id)">{{item.name}}</button>
-    } 
-  } 
-</div>
+<div ngbDropdown class="d-inline-block">
+  <button class="add-to-folder-button" id="folderList" ngbDropdownToggle>
+      +
+  </button>
+  <div ngbDropdownMenu aria-labelledby="folderList">
+      @for (folder of foldersList; track $index) {
+          @if(isMefiaFileInFolder(folder)){
+              <button ngbDropdownItem type="button" class="folder-button-to-remove" (click)="removeMediaFromFolder(folder.id)">{{folder.name}}</button>
+            } @else{
+              <button ngbDropdownItem type="button" class="folder-button-to-add" (click)="addMediaToFolder(folder.id)">{{folder.name}}</button>
+          }      
+      }
+  </div>
+</div>           

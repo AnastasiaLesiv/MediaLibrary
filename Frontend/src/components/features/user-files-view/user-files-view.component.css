@@ -17,9 +17,3 @@
     background-color: #f8a6c2;
 }
 
-.button-row{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    justify-content: space-between;
-}

@@ -1,4 +1,4 @@
-export class AudioEdit {
+export interface AudioEdit {
     title?: string
     artist?: string
     format?: string

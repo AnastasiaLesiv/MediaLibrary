@@ -5,6 +5,7 @@ using Media_library.Configuration;
 using Media_library.Dtos;
 using Media_library.Dtos.ResponseDtos;
 using Media_library.Entities;
+using Media_library.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -18,11 +19,13 @@ namespace Media_library.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IUserService _userService;
         private readonly JwtOptions _jwtOptions;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<JwtOptions> jwtOptions)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<JwtOptions> jwtOptions, IUserService userService)
         {
             _signInManager = signInManager;
+            _userService = userService;
             _jwtOptions = jwtOptions.Value;
             _userManager = userManager;
         }
@@ -65,6 +68,7 @@ namespace Media_library.Controllers
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user is null ? "" : user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user is null ? "" : user.Id.ToString()),
             };
 
             var key = new SymmetricSecurityKey(
@@ -78,6 +82,13 @@ namespace Media_library.Controllers
                 expires: expirationTime,
                 signingCredentials: creds
             );
+        }
+        
+        [HttpPost("createUser")]
+        public async Task<ActionResult<User>> CeateUser(CreateUserDto createUserDto)
+        {
+            var user  = await _userService.PostUser(createUserDto);
+            return Created();
         }
     }
 }

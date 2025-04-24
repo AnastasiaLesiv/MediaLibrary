@@ -9,6 +9,9 @@ import { ImageDto } from '../../../interfaces/creation-dtos/image-dto';
 import { AudioDto } from '../../../interfaces/creation-dtos/audio-dto';
 import { FolderService } from '../../../services/folder.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ReloadFoldersListService } from '../../../component-services/reload-folders-list.service';
+import { UsersService } from '../../../services/users.service';
+import { FolderDto } from '../../../interfaces/response-dtos/folder-dto';
 
 @Component({
   selector: 'app-folder-files-view',
@@ -19,14 +22,25 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class FolderFilesViewComponent implements OnInit, OnChanges {
   @Input() id?: number;
   mediaFiles: MediaFile[] = [];
+  userFolders: FolderDto[] = [];
+
+  folderName?: string;
   
   
   constructor(private folderService: FolderService, 
               private router: Router,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private reloadFoldersService: ReloadFoldersListService,
+              private usersService: UsersService) { }
 
   ngOnInit() {
-    this.reloadMediaFiles()
+    this.reloadMediaFiles();
+    this.getUserFoldersData();
+  }
+
+  getUserFoldersData() {
+    this.usersService.getUserFolders()
+      .subscribe(response => this.userFolders = response);
   }
 
   ngOnChanges() {
@@ -99,18 +113,19 @@ export class FolderFilesViewComponent implements OnInit, OnChanges {
   
 
   reloadMediaFiles(){
-    this.folderService.getFolderById(this.id!) //Always folder id = 1????????????
-    .subscribe(response => {
-      this.transformToMediaFileList(response.audios!, response.images!, response.videos!, response.ebooks!);
-    });
+    this.folderService.getFolderById(this.id!) 
+      .subscribe(response => {
+        this.folderName = response.name;
+        this.transformToMediaFileList(response.audios!, response.images!, response.videos!, response.ebooks!);
+      });
+    this.getUserFoldersData();
   }
 
   deleteFolder(){
-    this.folderService.deleteFolder(this.id!).subscribe(response =>
-      this.router.navigateByUrl("", {
-        state: {isFolderDeleted: true}
-    })
-    )
+    this.folderService.deleteFolder(this.id!).subscribe(response =>{
+      this.reloadFoldersService.reloadFolder();
+      this.router.navigateByUrl("")
+    });
   }
 
   open(content: TemplateRef<any>) {

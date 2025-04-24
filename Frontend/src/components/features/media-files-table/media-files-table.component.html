@@ -1,37 +1,36 @@
 <div class="media-files-table">
-    
-    <ng-template #actions>
-        <div class="media-files-table-filters">
-            
+    <div class="media-files-table-top">
+        <ng-content></ng-content>
+        <div class="media-files-table-filters">   
             <div class="media-files-table-filters-media-type">
                 <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-outline-secondary" id="mediaTypeFilter" ngbDropdownToggle>
-                    {{ selectedMediaType ? getMediaTypeName(selectedMediaType) : 'Media Type' }}
-                </button>
-                <div ngbDropdownMenu aria-labelledby="mediaTypeFilter">
-                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Audio)">Audio</button> 
-                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Ebook)">Ebook</button>
-                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Image)">Image</button>
-                    <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Video)">Video</button>
+                    <button class="btn btn-outline-secondary" id="mediaTypeFilter" ngbDropdownToggle>
+                        {{ selectedMediaType ? getMediaTypeName(selectedMediaType) : 'Media Type' }}
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="mediaTypeFilter">
+                        <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Audio)">Audio</button> 
+                        <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Ebook)">Ebook</button>
+                        <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Image)">Image</button>
+                        <button ngbDropdownItem (click)="setMediaTypeFilter(mediaTypes.Video)">Video</button>
+                    </div>
                 </div>
+                @if (selectedMediaType) {
+                    <button class="btn btn-outline-danger btn-sm" (click)="clearMediaTypeFilter()">✕</button>
+                }
             </div>
-            @if (selectedMediaType) {
-                <button class="btn btn-outline-danger btn-sm" (click)="clearMediaTypeFilter()">✕</button>
-            }
-        </div>
-        <div>
+            <div>
                 <form class="media-files-table-filters-search">
                     <label for="table-filtering-search" class="col-form-label">Search:</label>
                     <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
                 </form>
-        </div>
-        </div>
-    </ng-template>
+            </div>
+        </div>    
+    </div>
     
-
     <table class="media-files-table-data">
         <thead>
             <tr>
+            <th>Id</th>
               <th>Title</th>
               <th>Author</th>
               <th>Format</th>
@@ -45,6 +44,7 @@
         <tbody>
                 @for (item of filteredMediaFiles | slice: (page-1) * pageSize : page * pageSize; track $index) {
                     <tr>
+                        <td>{{item.id}}</td>
                         <td><ngb-highlight [result]="item.title" [term]="filter.value" /></td> 
                         <td><ngb-highlight [result]="item.author" [term]="filter.value" /></td>
                         <td>{{item.format}}</td>
@@ -55,31 +55,28 @@
                         <td style="height: 34px; width: 34px;">
                             @switch (item.mediaType) {
                                 @case (mediaTypes.Audio) {
-                                    <img style="height: 34px; width: 34px;" src="../../assets/media-types/audio.png">
+                                    <img class="images" src="../../assets/media-types/audio.png">
                                 }
                                 @case (mediaTypes.Image) {
-                                    <img style="height: 34px; width: 34px;" src="../../assets/media-types/image.png">
+                                    <img class="images" src="../../assets/media-types/image.png">
                                 }
                                 @case (mediaTypes.Video) {
-                                    <img style="height: 34px; width: 34px;" src="../../assets/media-types/video.png">
+                                    <img class="images" src="../../assets/media-types/video.png">
                                 }
                                 @case (mediaTypes.Ebook) {
-                                    <img style="height: 34px; width: 34px;" src="../../assets/media-types/ebook.png">
+                                    <img class="images" src="../../assets/media-types/ebook.png">
                                 }
                               }
                             
                         </td>
-                        <td>
-                            <button class=" btn btn-outline-primary" (click)="showFoldersListForm(item.id)">+</button>
-                            @if(showFoldersList.get(item.id)){
-                                <app-add-media-to-folder class="show-folders-list" [foldersList]="folderList" [mediaFileId]="item.id" [mediaType]="item.mediaType" (successfullOperation)="refreshMediaFiles()"/>
-                            } 
+                        <td>        
+                            <app-add-media-to-folder [foldersList]="folderList" [mediaFileId]="item.id" [mediaType]="item.mediaType" (successfullOperation)="refreshMediaFiles()"/>         
                         </td>
                         <td>
-                            <button class=" btn btn-outline-primary" routerLink="/editMedia/{{item.mediaType}}/{{item.id}}" routerLinkActive="active">Edit</button>
+                            <button class="edit-button" routerLink="/editMedia/{{item.mediaType}}/{{item.id}}" routerLinkActive="active"><img style="height: 24px; width: 24px;" src="../../assets/images/pencil.png"></button>
                         </td>
                         <td>
-                            <button class=" btn btn-outline-danger" (click)="open(content, item.id, item.mediaType)">Delete</button>
+                            <button class="delete-button" (click)="open(content, item.id, item.mediaType)">✕</button>
                         </td>
                     </tr>
                 }

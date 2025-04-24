@@ -1,3 +1,16 @@
-<p>
-  register-form works!
-</p>
+<div class="register-form">
+  <label for="userName" class="form-label">User name</label>
+  <input [(ngModel)]="registerModel.userName" type="text" class="form-control custom-input" id="userName">
+
+  <label for="fullName" class="form-label">Full name</label>
+  <input [(ngModel)]="registerModel.fullName" type="text" class="form-control custom-input" id="fullName">
+
+  <label for="email" class="form-label">Email</label>
+  <input [(ngModel)]="registerModel.email" type="text" class="form-control custom-input" id="email">
+
+  <label for="password" class="form-label">Password</label>
+  <input [(ngModel)]="registerModel.password" type="text" class="form-control custom-input" id="password">
+
+  <button (click)="createUser()">Register</button>
+  <button (click)="goBack()">Back</button>
+</div>

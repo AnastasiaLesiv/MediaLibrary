@@ -7,9 +7,12 @@ namespace Media_library.Services;
 
 public interface IUserService
 {
-   Task<List<User>> GetUsers();
+   Task<IEnumerable<User>> GetUsers();
    Task<UserDto> GetUserById(Guid id);
    Task PutUser(Guid id, UpdateUserDto? updateUserDto);
    Task<User> PostUser(CreateUserDto createUserDto);
    Task DeleteUser(Guid id);
+   
+   Task<UserDto> GetUserOwnData(Guid userId);
+   Task<IEnumerable<FolderDto?>> GetUserFolders(Guid userId);
 }

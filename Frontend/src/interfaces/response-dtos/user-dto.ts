@@ -7,7 +7,8 @@ import { VideoDto } from "../creation-dtos/video-dto"
 
 export interface UserDto {
     id?: number,
-    name?: string,
+    userName?: string,
+    fullName?: string,
     email?: string,
     registrationDate?: Date
     folders?: FolderDto[]
