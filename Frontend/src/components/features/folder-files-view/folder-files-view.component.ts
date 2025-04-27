@@ -8,14 +8,14 @@ import { VideoDto } from '../../../interfaces/creation-dtos/video-dto';
 import { ImageDto } from '../../../interfaces/creation-dtos/image-dto';
 import { AudioDto } from '../../../interfaces/creation-dtos/audio-dto';
 import { FolderService } from '../../../services/folder.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReloadFoldersListService } from '../../../component-services/reload-folders-list.service';
 import { UsersService } from '../../../services/users.service';
 import { FolderDto } from '../../../interfaces/response-dtos/folder-dto';
 
 @Component({
   selector: 'app-folder-files-view',
-  imports: [MediaFilesTableComponent,],
+  imports: [MediaFilesTableComponent, NgbDropdownModule],
   templateUrl: './folder-files-view.component.html',
   styleUrls: ['./folder-files-view.component.css']
 })

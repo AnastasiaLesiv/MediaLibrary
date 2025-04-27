@@ -27,66 +27,65 @@
         </div>    
     </div>
     
-    <table class="media-files-table-data">
-        <thead>
-            <tr>
-            <th>Id</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Format</th>
-              <th>Upload Date</th>
-              <th>Duration</th>
-              <th>Page count</th>
-              <th>Category Name</th>
-              <th>Media Type</th>
-            </tr>
-          </thead>
-        <tbody>
-                @for (item of filteredMediaFiles | slice: (page-1) * pageSize : page * pageSize; track $index) {
-                    <tr>
-                        <td>{{item.id}}</td>
-                        <td><ngb-highlight [result]="item.title" [term]="filter.value" /></td> 
-                        <td><ngb-highlight [result]="item.author" [term]="filter.value" /></td>
-                        <td>{{item.format}}</td>
-                        <td>{{item.uploadDate | date}}</td>
-                        <td>{{item.duration}}</td>
-                        <td>{{item.pageCount}}</td>
-                        <td><ngb-highlight [result]="item.categoryName" [term]="filter.value" /></td>
-                        <td style="height: 34px; width: 34px;">
-                            @switch (item.mediaType) {
-                                @case (mediaTypes.Audio) {
-                                    <img class="images" src="../../assets/media-types/audio.png">
+        <table class="media-files-table-data">
+            <thead>
+                <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Format</th>
+                <th>Upload Date</th>
+                <th>Duration</th>
+                <th>Page count</th>
+                <th>Category Name</th>
+                <th>Media Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @for (item of filteredMediaFiles | slice: (page-1) * pageSize : page * pageSize; track $index) {
+                        <tr>
+
+                            <td><ngb-highlight [result]="item.title" [term]="filter.value" /></td> 
+                            <td><ngb-highlight [result]="item.author" [term]="filter.value" /></td>
+                            <td>{{item.format}}</td>
+                            <td>{{item.uploadDate | date}}</td>
+                            <td>{{item.duration}}</td>
+                            <td>{{item.pageCount}}</td>
+                            <td><ngb-highlight [result]="item.categoryName" [term]="filter.value" /></td>
+                            <td style="height: 34px; width: 34px;">
+                                @switch (item.mediaType) {
+                                    @case (mediaTypes.Audio) {
+                                        <img class="images" src="../../assets/media-types/audio.png">
+                                    }
+                                    @case (mediaTypes.Image) {
+                                        <img class="images" src="../../assets/media-types/image.png">
+                                    }
+                                    @case (mediaTypes.Video) {
+                                        <img class="images" src="../../assets/media-types/video.png">
+                                    }
+                                    @case (mediaTypes.Ebook) {
+                                        <img class="images" src="../../assets/media-types/ebook.png">
+                                    }
                                 }
-                                @case (mediaTypes.Image) {
-                                    <img class="images" src="../../assets/media-types/image.png">
-                                }
-                                @case (mediaTypes.Video) {
-                                    <img class="images" src="../../assets/media-types/video.png">
-                                }
-                                @case (mediaTypes.Ebook) {
-                                    <img class="images" src="../../assets/media-types/ebook.png">
-                                }
-                              }
-                            
-                        </td>
-                        <td>        
-                            <app-add-media-to-folder [foldersList]="folderList" [mediaFileId]="item.id" [mediaType]="item.mediaType" (successfullOperation)="refreshMediaFiles()"/>         
-                        </td>
-                        <td>
-                            <button class="edit-button" routerLink="/editMedia/{{item.mediaType}}/{{item.id}}" routerLinkActive="active"><img style="height: 24px; width: 24px;" src="../../assets/images/pencil.png"></button>
-                        </td>
-                        <td>
-                            <button class="delete-button" (click)="open(content, item.id, item.mediaType)">✕</button>
-                        </td>
-                    </tr>
-                }
-            @empty {
-			<tr>
-				<td colspan="8" style="text-align: center">No mediafiles found</td>
-			</tr>
-        }
-        </tbody>
-    </table>
+                                
+                            </td>
+                            <td>        
+                                <app-add-media-to-folder [foldersList]="folderList" [mediaFileId]="item.id" [mediaType]="item.mediaType" (successfullOperation)="refreshMediaFiles()"/>         
+                            </td>
+                            <td>
+                                <button class="edit-button" routerLink="/editMedia/{{item.mediaType}}/{{item.id}}" routerLinkActive="active"><img style="height: 24px; width: 24px;" src="../../assets/images/pencil.png"></button>
+                            </td>
+                            <td>
+                                <button class="delete-button" (click)="open(content, item.id, item.mediaType)">✕</button>
+                            </td>
+                        </tr>
+                    }
+                @empty {
+                <tr>
+                    <td colspan="8" style="text-align: center">No mediafiles found</td>
+                </tr>
+            }
+            </tbody>
+        </table>
     
     @if(filteredMediaFiles.length > pageSize){
         <ngb-pagination [(page)]="page"

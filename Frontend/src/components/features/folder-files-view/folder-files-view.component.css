@@ -1,0 +1,10 @@
+.folder-name-button {
+    background-color: #f1a39a00;
+  color: #67251e;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.15rem;
+}
+.folder-name-button::after{
+  display: none !important;
+}

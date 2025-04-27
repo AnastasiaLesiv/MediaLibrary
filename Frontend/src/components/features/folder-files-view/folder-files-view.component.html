@@ -2,8 +2,14 @@
 	[tablemediaFiles]="mediaFiles" 
 	[folderList]="userFolders" 
 	(refreshMediaFilesTable)="reloadMediaFiles()">
-	<p>{{folderName}}</p>
-	<button class="btn btn-danger" (click)="open(content)">Delete folder</button>
+	<div ngbDropdown class="d-inline-block">
+		<button class="folder-name-button" id="mediaTypeFilter" ngbDropdownToggle>
+			{{folderName}}
+		</button>
+		<div ngbDropdownMenu aria-labelledby="mediaTypeFilter">
+			<button ngbDropdownItem (click)="open(content)">Delete folder</button> 
+		</div>
+	</div>
 </app-media-files-table>
 
 <ng-template #content let-modal>

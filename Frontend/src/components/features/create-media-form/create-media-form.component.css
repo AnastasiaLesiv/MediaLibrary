@@ -1,12 +1,17 @@
 .create-media-form{
-    height: 100%;
+    height: 75%;
     display: flex;
     flex-direction: column;
     padding: 24px;
     gap: 16px;
-    justify-content: space-between;
     background: linear-gradient(45deg,#fae4eb 0%, #d4f7f5 100%);
-
+    position: absolute;
+    top: 55%;
+    left: 60%;
+    transform: translate(-50%, -50%); /* Центрування */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
 }
 
 .media-type-buttons{
@@ -20,18 +25,38 @@
 .back-save-buttons{
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 20px;
 }
 
-.button-success{
-    background: #2c6e73;
-    color: rgb(228, 226, 226);
+.btn-success{
+    background: #489ea400;
+    color: rgb(20, 123, 119);
+    font-size: 18px;
+    border: none;
+}
+
+.btn-success:hover{
+    background: rgb(20, 123, 119);
+    color: rgb(247, 251, 251);
+}
+
+.btn-outline-danger{
+    border: none;
+    font-size: 18px;
 }
 
 .custom-input {
-    color: #f7ecec; /* Червоний колір тексту */
-    background-color: #849b9d; /* Світло-сірий фон */
-    border: 1px solid #cccccc; /* Сіра межа */
+    color: #3d3636; /* Червоний колір тексту */
+    background-color: #f5feff; /* Світло-сірий фон */
+    border: none; /* Сіра межа */
     padding: 8px; /* Внутрішні відступи */
     font-size: 16px; /* Розмір шрифту */
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
