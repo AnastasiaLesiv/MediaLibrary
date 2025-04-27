@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UsersService } from '../../../../services/users.service';
+import { UsersService } from '../../../../core/api/services/users.service';
 import { Router } from '@angular/router';
-import { UserEdit } from '../../../../interfaces/edition-models/user-edit';
+import { UserUpdate } from '../../../../core/interfaces/auth/user-update.model';
 import { AppGlobalConstants } from '../../../../core/global/global-variables';
-import { EditFormService } from '../../../../component-services/edit-form.service';
+import { HideShowFoldersListService } from '../../../../core/services/component-behaviours/hide-show-folders-list.service';
 
 @Component({
   selector: 'app-edit-user-profile',
@@ -13,13 +13,13 @@ import { EditFormService } from '../../../../component-services/edit-form.servic
   styleUrls: ['./edit-user-profile.component.css']
 })
 export class EditUserProfileComponent implements OnInit {
-  userModel: UserEdit;
+  userModel: UserUpdate;
 
   private userId = sessionStorage.getItem(AppGlobalConstants.sessionStorageUserId)!;
 
   constructor(private router: Router, 
               private userService: UsersService,
-              private editFormService: EditFormService) {
+              private editFormService: HideShowFoldersListService) {
     this.userModel ={
       userName: undefined,
       fullName: undefined,
@@ -30,7 +30,7 @@ export class EditUserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getUserData()
-    this.editFormService.showForm();
+    this.editFormService.hideFoldersList();
   }
 
   getUserData(){
@@ -44,7 +44,7 @@ export class EditUserProfileComponent implements OnInit {
   }
 
   close(){
-    this.editFormService.hideForm();
+    this.editFormService.showFoldersList();
     this.router.navigateByUrl("");
   }
 

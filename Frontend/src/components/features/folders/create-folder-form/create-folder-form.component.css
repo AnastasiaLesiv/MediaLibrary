@@ -1,0 +1,33 @@
+.create-folder-form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #f8eaf2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+.save-folder-form{
+    display: flex;
+    justify-content: center;
+}
+
+.close-folder-form{
+    border-radius: 8px;
+}
+
+.create-folder-input-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #706f6f;
+    font-weight: bold;
+}
+
+.create-folder-input {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

@@ -1,0 +1,57 @@
+<div class="create-media-form-base">
+  <div class="form-control create-media-form">
+    <div class ="media-type-buttons">
+      <button class="btn" (click)="chooseType(mediaTypes.Audio)">
+        <img style="height: 34px; width: 34px;" src="../../assets/media-types/audio.png">
+      </button>
+      <button class="btn" (click)="chooseType(mediaTypes.Image)">
+        <img style="height: 34px; width: 34px;" src="../../assets/media-types/image.png">
+      </button>
+      <button class="btn" (click)="chooseType(mediaTypes.Video)">
+        <img style="height: 34px; width: 34px;" src="../../assets/media-types/video.png">
+      </button>
+      <button class="btn" (click)="chooseType(mediaTypes.Ebook)">
+        <img style="height: 34px; width: 34px;" src="../../assets/media-types/ebook.png">
+      </button>
+    </div>
+  
+  @if (this.mediaTypeSelected !== undefined) {
+    <div>
+      <label for="title" class="form-label">Title</label>
+      <input [(ngModel)]="title" type="text" class="form-control custom-input" id="title">
+  
+      @if(mediaTypeSelected === mediaTypes.Audio){
+        <label for="artist" class="form-label">Artist</label>
+        <input [(ngModel)]="audioModel.artist" type="text" class="form-control custom-input" id="artist">
+      } @else {
+        <label for="author" class="form-label">Author</label>
+        <input [(ngModel)]="author" type="text" class="form-control custom-input" id="author">
+      }
+  
+      <label for="format" class="form-label">Format</label>
+      <input [(ngModel)]="format" type="text" class="form-control custom-input" id="format">
+  
+      @if (mediaTypeSelected === mediaTypes.Audio || mediaTypeSelected === mediaTypes.Video) {
+        <label for="duration" class="form-label">Duration</label>
+          <input [(ngModel)]="duration" type="text" class="form-control custom-input" id="duration">
+      }
+      @if (mediaTypeSelected === mediaTypes.Ebook) {
+        <label for="pageCount" class="form-label">Page Count</label>
+        <input [(ngModel)]="ebookModel.pageCount" type="text" class="form-control custom-input" id="pageCount">
+      }
+  
+      <label for="categories" class="form-label">Categories</label>
+      <input class="form-control custom-input" list="categories-list" id="categories" [(ngModel)]="customCategory" />
+      <datalist id="categories-list">
+        @for(item of categoryList; track item.id){
+          <option [value]="item.categoryName"></option>
+        }
+      </datalist>
+    </div>
+    <div class="back-save-buttons">
+      <button class="btn btn-outline-danger" (click)="goBack()">Back</button>
+      <button class="btn btn-success" (click)="saveMediaFile(mediaTypeSelected!)">Save</button>
+    </div>
+  }
+  </div> 
+</div>

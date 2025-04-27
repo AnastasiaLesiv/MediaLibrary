@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginDto } from '../../../../interfaces/auth/login-dto';
+import { Login } from '../../../../core/interfaces/auth/login.model';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../../services/auth.service';
+import { AuthService } from '../../../../core/api/services/auth.service';
 import { AppGlobalConstants } from '../../../../core/global/global-variables';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
@@ -13,7 +13,7 @@ import { jwtDecode, JwtPayload } from 'jwt-decode';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginModel: LoginDto;
+  loginModel: Login;
 
   constructor(private authService: AuthService, private router: Router) { 
     this.loginModel={

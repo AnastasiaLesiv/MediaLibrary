@@ -10,6 +10,9 @@ span.ngb-highlight {
 	background-color: rgb(65, 181, 154);
 }
 
+.dropdown{
+    position: static !important;
+}
 
 h1,h2,h3,h4,h5,h6,p,a,ul{
     margin: 0 !important;

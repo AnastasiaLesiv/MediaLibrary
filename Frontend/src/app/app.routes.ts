@@ -1,14 +1,13 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { MainLayoutComponent } from '../components/layout/main-layout/main-layout.component';
-import { CreateMediaFormComponent } from '../components/features/create-media-form/create-media-form.component';
-import { EditMediaFormComponent } from '../components/features/edit-media-form/edit-media-form.component';
-import { UserFilesViewComponent } from '../components/features/user-files-view/user-files-view.component';
-import { FolderFilesViewComponent } from '../components/features/folder-files-view/folder-files-view.component';
 import { LoginComponent } from '../components/features/auth/login/login.component';
 import { authGuard } from '../core/guards/auth.guard';
 import { RegisterFormComponent } from '../components/features/auth/register-form/register-form.component';
 import { EditUserProfileComponent } from '../components/features/auth/edit-user-profile/edit-user-profile.component';
-import { NgModule } from '@angular/core';
+import { UserFilesViewComponent } from '../components/features/mediafiles/user-files-view/user-files-view.component';
+import { CreateMediaFormComponent } from '../components/features/mediafiles/create-media-form/create-media-form.component';
+import { EditMediaFormComponent } from '../components/features/generic/edit-media-form/edit-media-form.component';
+import { FolderFilesViewComponent } from '../components/features/folders/folder-files-view/folder-files-view.component';
 
 export const routes: Routes = [ 
     {  

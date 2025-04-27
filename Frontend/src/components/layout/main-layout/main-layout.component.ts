@@ -1,16 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FoldersListComponent } from "../../features/folders-list/folders-list.component";
+import { Component, OnInit } from '@angular/core';
 import { WildcardComponent } from "../wildcard/wildcard.component";
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
-import { UsersService } from '../../../services/users.service';
-import { UserDto } from '../../../interfaces/response-dtos/user-dto';
-import { MediaFile } from '../../../interfaces/creation-dtos/media-file';
+import { UsersService } from '../../../core/api/services/users.service';
+import { User } from '../../../core/interfaces/auth/user.model';
+import { MediaFile } from '../../../core/interfaces/mediafiles/media-file.model';
 import { AppGlobalConstants } from '../../../core/global/global-variables';
-
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { EditFormService } from '../../../component-services/edit-form.service';
-import { ReloadFoldersListService } from '../../../component-services/reload-folders-list.service';
+import { HideShowFoldersListService } from '../../../core/services/component-behaviours/hide-show-folders-list.service';
+import { ReloadFoldersListService } from '../../../core/services/component-behaviours/reload-folders-list.service';
+import { FoldersListComponent } from '../../features/folders/folders-list/folders-list.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -19,15 +17,15 @@ import { ReloadFoldersListService } from '../../../component-services/reload-fol
   imports: [FoldersListComponent, WildcardComponent, NavBarComponent, CommonModule]
 })
 export class MainLayoutComponent implements OnInit{
-  userData?: UserDto;
+  userData?: User;
   mediaFiles: MediaFile[] = [];
 
-  isEditFormVisible?: boolean = false;
+  isFoldersListVisible?: boolean = true;
 
   private userId = sessionStorage.getItem(AppGlobalConstants.sessionStorageUserId)!;
 
   constructor(private usersService: UsersService,
-              private editFormService: EditFormService,
+              private hideShowFoldersList: HideShowFoldersListService,
               private reloadFoldersList: ReloadFoldersListService) {
    }
 
@@ -46,8 +44,8 @@ export class MainLayoutComponent implements OnInit{
 
     }
 
-    this.editFormService.isFormVisible$.subscribe(isVisible => {
-      this.isEditFormVisible = isVisible;
+    this.hideShowFoldersList.isFoldersListVisible$.subscribe(isVisible => {
+      this.isFoldersListVisible = isVisible;
     });
 
     this.reloadFoldersList.reloadFolders$.subscribe(reloadFoldes => {

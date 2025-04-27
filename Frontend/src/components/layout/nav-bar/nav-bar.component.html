@@ -1,10 +1,10 @@
 <nav>
   <div class="navbar-base">
-    <a class="navbar-brand" routerLink="" routerLinkActive="activer" >MediaLibrary</a>
+    <a class="navbar-brand" (click)="goHome()">MediaLibrary</a>
     <div class="navbar-items">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="active">Home</a>
+          <a class="nav-link active" (click)="goHome()">Home</a>
         </li>
       </ul>
       <div ngbDropdown class="d-inline-block">
