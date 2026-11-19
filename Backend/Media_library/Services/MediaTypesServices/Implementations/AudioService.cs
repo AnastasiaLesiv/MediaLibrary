@@ -44,6 +44,7 @@ public class AudioService : IAudioService
         audio.Title = updateAudioDto.Title;
         audio.Artist = updateAudioDto.Artist;
         audio.Format = updateAudioDto.Format;
+        audio.ResourceUrl = updateAudioDto.ResourceUrl?.Trim();
         audio.Duration = updateAudioDto.Duration;
         audio.CategoryId = updateAudioDto.CategoryId;
         
@@ -62,6 +63,7 @@ public class AudioService : IAudioService
             Title = createAudioDto.Title,
             Artist = createAudioDto.Artist,
             Format = createAudioDto.Format,
+            ResourceUrl = createAudioDto.ResourceUrl?.Trim(),
             Duration = createAudioDto.Duration,
             UploadDate = createAudioDto.UploadDate,
             CategoryId = createAudioDto.CategoryId,

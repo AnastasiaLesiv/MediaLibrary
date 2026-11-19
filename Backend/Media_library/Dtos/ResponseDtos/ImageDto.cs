@@ -9,4 +9,5 @@ public class ImageDto
     public DateTime UploadDate { get; set; }
     public int CategoryId { get; set; }
     public string CategoryName { get; set; }
+    public string? ResourceUrl { get; set; }
 }

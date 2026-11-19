@@ -42,6 +42,7 @@ public class EbookService : IEbookService
         ebook.Title = updateEbookDto.Title;
         ebook.Author = updateEbookDto.Author;
         ebook.Format = updateEbookDto.Format;
+        ebook.ResourceUrl = updateEbookDto.ResourceUrl?.Trim();
         ebook.PageCount = updateEbookDto.PageCount;
         ebook.CategoryId = updateEbookDto.CategoryId;
         
@@ -60,6 +61,7 @@ public class EbookService : IEbookService
             Title = createEbookDto.Title,
             Author = createEbookDto.Author,
             Format = createEbookDto.Format,
+            ResourceUrl = createEbookDto.ResourceUrl?.Trim(),
             PageCount = createEbookDto.PageCount,
             UploadDate = createEbookDto.UploadDate,
             CategoryId = createEbookDto.CategoryId,

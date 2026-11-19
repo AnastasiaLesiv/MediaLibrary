@@ -32,9 +32,15 @@ public class EbookRepository : IEbookRepository
         return _context.SaveChangesAsync();
     }
 
-    public Task DeleteEbook(Ebook ebook)
+    public async Task DeleteEbook(Ebook ebook)
     {
+        var folderItems = await _context.FolderItemEbooks
+            .Where(item => item.EbookId == ebook.Id)
+            .ToListAsync();
+
+        _context.FolderItemEbooks.RemoveRange(folderItems);
         _context.Ebooks.Remove(ebook);
-        return _context.SaveChangesAsync();
+
+        await _context.SaveChangesAsync();
     }
 }

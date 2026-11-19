@@ -16,7 +16,7 @@ public class ImageRepository : IImageRepository
     {
         var image = await _context.Images
             .Include(category => category.Category)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(image => image.Id == id);
         return image;
     }
 
@@ -32,9 +32,15 @@ public class ImageRepository : IImageRepository
         return _context.SaveChangesAsync();
     }
 
-    public Task DeleteImage(Image image)
+    public async Task DeleteImage(Image image)
     {
+        var folderItems = await _context.FolderItemImages
+            .Where(item => item.ImageId == image.Id)
+            .ToListAsync();
+
+        _context.FolderItemImages.RemoveRange(folderItems);
         _context.Images.Remove(image);
-        return _context.SaveChangesAsync();
+
+        await _context.SaveChangesAsync();
     }
 }

@@ -18,5 +18,8 @@ public class Ebook
     public Category Category { get; set; }
     public Guid UserId { get; set; } 
     public User User { get; set; }
+    
+    [MaxLength(2048)]
+    public string? ResourceUrl { get; set; }
     public ICollection<FolderItemEbook>? FolderItemEbooks { get; set; }
 }

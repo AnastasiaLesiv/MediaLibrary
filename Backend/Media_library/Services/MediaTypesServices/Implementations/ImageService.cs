@@ -43,6 +43,7 @@ public class ImageService : IImageService
         image.Title = updateImageDto.Title;
         image.Author = updateImageDto.Author;
         image.Format = updateImageDto.Format;
+        image.ResourceUrl = updateImageDto.ResourceUrl?.Trim();
         image.CategoryId = updateImageDto.CategoryId;
         
         await _imageRepository.PutImage(image);
@@ -60,6 +61,7 @@ public class ImageService : IImageService
             Title = createImageDto.Title,
             Author = createImageDto.Author,
             Format = createImageDto.Format,
+            ResourceUrl = createImageDto.ResourceUrl?.Trim(),
             UploadDate = createImageDto.UploadDate,
             CategoryId = createImageDto.CategoryId,
             UserId = createImageDto.UserId

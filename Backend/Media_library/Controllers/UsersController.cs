@@ -25,29 +25,46 @@ namespace Media_library.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public IActionResult GetUsers()
         {
-            return Ok(await _userService.GetUsers());
+            return Forbid();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUser(Guid id)
         {
+            if (!IsCurrentUser(id))
+            {
+                return Forbid();
+            }
+            
             var user = await _userService.GetUserById(id);
-
             return Ok(user);
         }
         
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(Guid id, UpdateUserDto? updateUserDto)
         {
+            if (!IsCurrentUser(id))
+            {
+                return Forbid();
+            }
+            if (updateUserDto == null)
+            {
+                return BadRequest("Не передано дані для редагування.");
+            }
+
             try
             {
                 await _userService.PutUser(id, updateUserDto);
             }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
             catch (DbUpdateConcurrencyException)
             {
-                    return NotFound();
+                return NotFound();
             }
 
             return NoContent();
@@ -56,8 +73,12 @@ namespace Media_library.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            await _userService.DeleteUser(id);
+            if (!IsCurrentUser(id))
+            {
+                return Forbid();
+            }
             
+            await _userService.DeleteUser(id);
             return NoContent();
         }
 
@@ -79,5 +100,12 @@ namespace Media_library.Controllers
             return Ok(userData);
         }
 
+        private bool IsCurrentUser(Guid id)
+        {
+            return Guid.TryParse(
+                User.FindFirstValue(ClaimTypes.NameIdentifier),
+                out var currentUserId
+            ) && currentUserId == id;
+        }
     }
 }

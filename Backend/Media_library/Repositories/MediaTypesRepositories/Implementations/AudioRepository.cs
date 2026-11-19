@@ -32,9 +32,15 @@ public class AudioRepository : IAudioRepository
         return _context.SaveChangesAsync();
     }
 
-    public Task DeleteAudio(Audio audio)
+    public async Task DeleteAudio(Audio audio)
     {
+        var folderItems = await _context.FolderItemAudios
+            .Where(item => item.AudioId == audio.Id)
+            .ToListAsync();
+
+        _context.FolderItemAudios.RemoveRange(folderItems);
         _context.Audios.Remove(audio);
-        return _context.SaveChangesAsync();
+
+        await _context.SaveChangesAsync();
     }
 }

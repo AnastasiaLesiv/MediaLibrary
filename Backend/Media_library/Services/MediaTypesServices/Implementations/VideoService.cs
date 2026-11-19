@@ -42,6 +42,7 @@ public class VideoService : IVideoService
         video.Title = updateVideoDto.Title;
         video.Author = updateVideoDto.Author;
         video.Format = updateVideoDto.Format;
+        video.ResourceUrl = updateVideoDto.ResourceUrl?.Trim();
         video.Duration = updateVideoDto.Duration;
         video.CategoryId = updateVideoDto.CategoryId;
         
@@ -60,6 +61,7 @@ public class VideoService : IVideoService
             Title = createVideoDto.Title,
             Author = createVideoDto.Author,
             Format = createVideoDto.Format,
+            ResourceUrl = createVideoDto.ResourceUrl?.Trim(),
             Duration = createVideoDto.Duration,
             UploadDate = createVideoDto.UploadDate,
             CategoryId = createVideoDto.CategoryId,

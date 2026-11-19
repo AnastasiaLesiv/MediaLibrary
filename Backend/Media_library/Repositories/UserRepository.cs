@@ -22,6 +22,7 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetUserById(Guid id)
     {
         var user = await _context.Users
+            .AsSplitQuery()
             .Include(f => f.Folders)
                 .ThenInclude(f => f.FolderItemAudios)
             .Include(f => f.Folders)
@@ -44,28 +45,29 @@ public class UserRepository : IUserRepository
     }
     public async Task PutUser(User user, string password)
     {
+        // Якщо будь-яка зміна не пройде, попередні дані залишаться в БД.
+        await using var transaction = await _context.Database.BeginTransactionAsync();
+
         var updateResult = await _userManager.UpdateAsync(user);
+
         if (!updateResult.Succeeded)
         {
-            throw new Exception(updateResult.Errors.First().Description);
+            throw new ArgumentException(string.Join(" ", updateResult.Errors.Select(error => error.Description)));
         }
-        
+
         if (!string.IsNullOrEmpty(password))
         {
-            // Видаляємо старий пароль
-            var removePasswordResult = await _userManager.RemovePasswordAsync(user);
-            if (!removePasswordResult.Succeeded)
-            {
-                throw new Exception(removePasswordResult.Errors.First().Description);
-            }
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            // Додаємо новий пароль
-            var addPasswordResult = await _userManager.AddPasswordAsync(user, password);
-            if (!addPasswordResult.Succeeded)
+            var passwordResult = await _userManager.ResetPasswordAsync(user, token, password);
+
+            if (!passwordResult.Succeeded)
             {
-                throw new Exception(addPasswordResult.Errors.First().Description);
+                throw new ArgumentException(string.Join(" ", passwordResult.Errors.Select(error => error.Description)));
             }
         }
+
+        await transaction.CommitAsync();
     }
     public async Task PostUser(User user, string password)
     {
@@ -117,6 +119,7 @@ public class UserRepository : IUserRepository
     public async Task<IEnumerable<Folder>> GetUserFolders(Guid userId)
     {
         return await _context.Folders
+            .AsSplitQuery()
             .Include(f => f.FolderItemAudios)
                 .ThenInclude(fa => fa.Audio)
             .Include(f => f.FolderItemEbooks)

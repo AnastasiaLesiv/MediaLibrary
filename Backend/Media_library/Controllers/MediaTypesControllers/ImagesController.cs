@@ -5,6 +5,8 @@ using Media_library.Services.MediaTypesServices.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Media_library.Security;
 
 namespace Media_library.Controllers.MediaTypesControllers
 {
@@ -14,10 +16,12 @@ namespace Media_library.Controllers.MediaTypesControllers
     public class ImagesController : ControllerBase
     {
         private readonly IImageService _imageService;
+        private readonly Context _context;
 
-        public ImagesController(IImageService imageService)
+        public ImagesController(IImageService imageService, Context context)
         {
             _imageService = imageService; 
+            _context = context;
         }
 
 
@@ -25,8 +29,12 @@ namespace Media_library.Controllers.MediaTypesControllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Image>> GetImage(int id)
         {
+            if (!await this.OwnsAsync(_context.Images, id))
+            {
+                return NotFound();
+            }
+            
             var image = await _imageService.GetImageById(id);
-
             return Ok(image);
         }
 
@@ -35,6 +43,19 @@ namespace Media_library.Controllers.MediaTypesControllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutImage(int id, UpdateImageDto? updateImageDto)
         {
+            if (!await this.OwnsAsync(_context.Images, id))
+            {
+                return NotFound();
+            }
+            if (updateImageDto == null)
+            {
+                return BadRequest("Не передано дані для редагування.");
+            }
+            if (!await _context.Categories.AnyAsync(c => c.Id == updateImageDto.CategoryId))
+            {
+                return BadRequest("Вибраної категорії не існує.");
+            }
+            
             try
             {
                 await _imageService.PutImage(id, updateImageDto);
@@ -52,8 +73,18 @@ namespace Media_library.Controllers.MediaTypesControllers
         [HttpPost]
         public async Task<ActionResult<Image>> PostImage(CreateImageDto createImageDto)
         {
-            var image = await  _imageService.PostImage(createImageDto);
+            if (!Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var currentUserId))
+            {
+                return Unauthorized();
+            }
+            createImageDto.UserId = currentUserId;
             
+            if (!await _context.Categories.AnyAsync(c => c.Id == createImageDto.CategoryId))
+            {
+                return BadRequest("Вибраної категорії не існує.");
+            }
+            
+            var image = await  _imageService.PostImage(createImageDto);
             return CreatedAtAction("GetImage", new { id = image.Id }, image);
         }
 
@@ -61,8 +92,12 @@ namespace Media_library.Controllers.MediaTypesControllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteImage(int id)
         {
+            if (!await this.OwnsAsync(_context.Images, id))
+            {
+                return NotFound();
+            }
+            
             await _imageService.DeleteImage(id);
-
             return NoContent();
         }
     }

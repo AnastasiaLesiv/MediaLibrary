@@ -29,9 +29,15 @@ public class VideoRepository : IVideoRepository
         return _context.SaveChangesAsync();
     }
 
-    public Task DeleteVideo(Video video)
+    public async Task DeleteVideo(Video video)
     {
+        var folderItems = await _context.FolderItemVideos
+            .Where(item => item.VideoId == video.Id)
+            .ToListAsync();
+
+        _context.FolderItemVideos.RemoveRange(folderItems);
         _context.Videos.Remove(video);
-        return _context.SaveChangesAsync();
+
+        await _context.SaveChangesAsync();
     }
 }

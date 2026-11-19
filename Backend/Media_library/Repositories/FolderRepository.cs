@@ -17,6 +17,7 @@ public class FolderRepository : IFolderRepository
     public async Task<Folder?> GetFolderById(int id)
     {
         var folder = await _context.Folders
+            .AsSplitQuery()
             .Include(f => f.FolderItemAudios)!
                 .ThenInclude(i => i.Audio)
                     .ThenInclude(i => i.Category)

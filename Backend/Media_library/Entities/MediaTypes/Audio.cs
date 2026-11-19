@@ -19,5 +19,8 @@ public class Audio
     public Guid UserId { get; set; }
     public User User { get; set; }
     
+    [MaxLength(2048)]
+    public string? ResourceUrl { get; set; }
+    
     public ICollection<FolderItemAudio>? FolderItemAudios { get; set; }
 }

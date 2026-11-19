@@ -1,9 +1,17 @@
-﻿namespace Media_library.Dtos.UpdateDtos;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Media_library.Dtos.UpdateDtos;
 
 public class UpdateUserDto
 {
-    public string UserName { get; set; }
-    public string FullName { get; set; }
-    public string Email { get; set; }
+    [Required] [StringLength(256)]
+    public string UserName { get; set; } = string.Empty;
+
+    [Required] [StringLength(150)]
+    public string FullName { get; set; } = string.Empty;
+
+    [Required] [EmailAddress] [StringLength(256)]
+    public string Email { get; set; } = string.Empty;
+
     public string? Password { get; set; }
 }

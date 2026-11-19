@@ -18,5 +18,8 @@ public class Image
     public Guid UserId { get; set; }
     public User? User { get; set; }
     
+    [MaxLength(2048)]
+    public string? ResourceUrl { get; set; }
+    
     public ICollection<FolderItemImage>? FolderItemImages { get; set; }
 }
