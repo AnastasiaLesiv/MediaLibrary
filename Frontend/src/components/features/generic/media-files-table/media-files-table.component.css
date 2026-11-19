@@ -1,100 +1,223 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.media-files-table {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: #243746;
+}
+
+/* Прибираємо зайві проміжки від Bootstrap-класу my-3. */
+.media-files-table > .my-3 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.media-files-table p {
+  line-height: 1.5;
+}
+
 .media-files-table-data {
-    background-color: rgba(0, 0, 0, 0.192); 
-    color: #ffffff;
-    padding: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
-    border-radius: 20px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #d7e3e4;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #243746;
+  font-size: 14px;
+  box-shadow: 0 3px 12px rgba(36, 55, 70, 0.08);
 }
 
-.media-files-table th {
-    padding: 10px 15px; /* Відступи в заголовках */
-    /*text-align: left; /* Вирівнювання тексту */
-    border-bottom: 1px solid #d3d3d3; /* Світла межа знизу, як на зображенні */
-    font-weight: bold; /* Жирний текст для заголовків */
-    color: #b66961;
+.media-files-table-data th {
+  padding: 12px 8px;
+  background: #e7f1f0;
+  color: #285d61;
+  font-weight: 600;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #c8dcda;
 }
 
-
-.media-files-table td {
-    padding: 10px 15px; /* Відступи в комірках */
-    /*border-bottom: 1px solid #e6e6e6; /* Тонка межа між рядками */
+.media-files-table-data th:first-child {
+  border-top-left-radius: 12px;
 }
 
-
-.media-files-tablet tr:last-child td {
-    border-bottom: none;
+.media-files-table-data th:last-child {
+  border-top-right-radius: 12px;
 }
 
-
-.media-files-table td:last-child {
-    text-align: center; /* Вирівнювання іконки по центру */
+.media-files-table-data td {
+  padding: 10px 8px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e7eded;
+  line-height: 1.45;
 }
 
-
-.media-files-table tr:hover {
-    background-color: rgba(0, 0, 0, 0.05); /* Легке затемнення при наведенні */
+.media-files-table-data tbody tr:nth-child(even) {
+  background: #f5f9f9;
 }
 
-.media-files-table-top{
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
+.media-files-table-data tbody tr:hover {
+  background: #eaf4f2;
 }
 
-.media-files-table-filters {
-    display: flex;
-    gap: 8px;
+.media-files-table-data tbody tr:last-child td {
+  border-bottom: none;
 }
 
-.media-files-table-filters-media-type{
-    display: flex; 
-    gap: 8px; 
-    align-items: center;
+.media-files-table-data td:nth-child(1),
+.media-files-table-data td:nth-child(2),
+.media-files-table-data td:nth-child(7) {
+  max-width: 200px;
+  overflow-wrap: anywhere;
 }
 
-.media-files-table-filters-search{
-    display: flex; 
-    gap: 8px; 
-    color: #347b6c;
+.media-files-table-data td:nth-child(n + 8) {
+  text-align: center;
 }
 
-.media-files-table{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.images {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
-
-
-
-.images{
-    height: 34px; 
-    width: 34px;
+.edit-button,
+.delete-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
 }
 
-.edit-button{
-    height: 34px; 
-    width: 34px;
-    background-color: #a5333300;
-    border: none;
+.edit-button:hover {
+  background: #dcecea;
 }
 
-.delete-button{
-    max-width: 164px;
-    background-color: #f1a39a00;
-    color: #b0291a;
-    border: none;
-    border-radius: 8px;
-    font-size: 20px;
+.delete-button {
+  color: #b43e3e;
+  font-size: 22px;
 }
 
-.dropdown-item:focus, .dropdown-item:active {
-    background-color: #e6bbed00 !important; /* синій фон для обраної опції */
-    color: white !important; /* білий текст для контрасту */
+.delete-button:hover {
+  background: #fbe6e6;
+}
+
+.dropdown-item {
+  color: #243746;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: #e7f1f0;
+  color: #285d61;
+}
+
+.dropdown-item:active {
+  background: #2c6e73;
+  color: #ffffff;
+}
+
+@media (max-width: 1000px) {
+  .media-files-table-data {
+    font-size: 13px;
   }
-  
-  .dropdown-item {
-    background-color: transparent; /* фон за замовчуванням */
+
+  .media-files-table-data th,
+  .media-files-table-data td {
+    padding: 8px 5px;
+  }
+}
+
+.media-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar-primary {
+  flex-shrink: 0;
+}
+
+.media-toolbar > .btn,
+.toolbar-type .btn {
+  white-space: nowrap;
+}
+
+.toolbar-sort,
+.toolbar-type,
+.toolbar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-sort label,
+.toolbar-search label {
+  white-space: nowrap;
+  color: #285d61;
+}
+
+.toolbar-sort select {
+  width: 155px;
+}
+
+.toolbar-search {
+  margin-left: auto;
+}
+
+.toolbar-search input {
+  width: 180px;
+}
+
+.media-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  color: #285d61;
+  font-size: 14px;
+}
+
+.duplicate-results[hidden] {
+  display: none;
+}
+
+.duplicate-results {
+  padding: 12px;
+  border: 1px solid #c8dcda;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 1200px) {
+  .toolbar-search {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .toolbar-search {
+    width: 100%;
   }
 
+  .toolbar-search input {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+}

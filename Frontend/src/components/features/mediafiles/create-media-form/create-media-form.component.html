@@ -31,13 +31,16 @@
       <label for="format" class="form-label">Format</label>
       <input [(ngModel)]="format" type="text" class="form-control custom-input" id="format">
   
+      <label for="resourceUrl" class="form-label">Resource URL (optional)</label>
+      <input [(ngModel)]="resourceUrl" type="url" maxlength="2048" class="form-control custom-input" id="resourceUrl" placeholder="https://example.com/media">
+      
       @if (mediaTypeSelected === mediaTypes.Audio || mediaTypeSelected === mediaTypes.Video) {
-        <label for="duration" class="form-label">Duration</label>
-          <input [(ngModel)]="duration" type="text" class="form-control custom-input" id="duration">
+        <label for="duration" class="form-label">Duration (seconds)</label>
+          <input [(ngModel)]="duration" type="number" min="1" step="1" class="form-control custom-input" id="duration">
       }
       @if (mediaTypeSelected === mediaTypes.Ebook) {
         <label for="pageCount" class="form-label">Page Count</label>
-        <input [(ngModel)]="ebookModel.pageCount" type="text" class="form-control custom-input" id="pageCount">
+        <input [(ngModel)]="ebookModel.pageCount" type="number" min="1" step="1" class="form-control custom-input" id="pageCount">
       }
   
       <label for="categories" class="form-label">Categories</label>

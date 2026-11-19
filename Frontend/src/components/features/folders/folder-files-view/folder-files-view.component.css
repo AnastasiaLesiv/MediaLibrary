@@ -1,10 +1,25 @@
 .folder-name-button {
-  background-color: #f1a39a00;
-  color: #67251e;
+  background: transparent;
+  color: #174f54;
   border: none;
   border-radius: 8px;
+  padding: 8px 12px;
   font-size: 1.15rem;
+  font-weight: 600;
+  text-align: left;
+  transition: background-color 0.2s;
 }
+
+.folder-name-button:hover {
+  background: rgba(255, 255, 255, 0.55);
+  color: #174f54;
+}
+
+.folder-name-button:focus-visible {
+  outline: 2px solid #174f54;
+  outline-offset: 3px;
+}
+
 .folder-name-button::after{
   display: none !important;
 }

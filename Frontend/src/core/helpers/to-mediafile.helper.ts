@@ -17,6 +17,7 @@ export function transformToMediaFileList(audios: Audio[], images: Image[], video
 function audioToMediaFile(a: Audio): MediaFile {
     var mediaFile: MediaFile = {
       id: a.id,
+      resourceUrl: a.resourceUrl,
       author: a.artist,
       categoryName: a.categoryName,
       format: a.format,
@@ -31,6 +32,7 @@ function audioToMediaFile(a: Audio): MediaFile {
 function imageToMediaFile(i: Image): MediaFile{
     var mediaFile: MediaFile = {
       id: i.id,
+      resourceUrl: i.resourceUrl,
       author: i.author,
       categoryName: i.categoryName,
       format: i.format,
@@ -44,6 +46,7 @@ function imageToMediaFile(i: Image): MediaFile{
 function videoToMediaFile(v: Video): MediaFile{
     var mediaFile: MediaFile = {
       id: v.id,
+      resourceUrl: v.resourceUrl,
       author: v.author,
       categoryName: v.categoryName,
       format: v.format,
@@ -58,6 +61,7 @@ function videoToMediaFile(v: Video): MediaFile{
 function ebookToMediaFile(e: Ebook): MediaFile{
     var mediaFile: MediaFile = {
       id: e.id,
+      resourceUrl: e.resourceUrl,
       author: e.author,
       categoryName: e.categoryName,
       format: e.format,

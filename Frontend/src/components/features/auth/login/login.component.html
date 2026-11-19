@@ -1,10 +1,19 @@
-<div class="login-form">
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
   <label for="userName" class="form-label">User name</label>
-  <input [(ngModel)]="loginModel.userName" type="text" class="form-control custom-input" id="userName">
+  <input formControlName="userName" type="text" class="form-control custom-input" id="userName">
+
+  @if(showUserNameMandatory()){
+    <p class="error-message">Username is mandatory</p>
+  }
 
   <label for="password" class="form-label">Password</label>
-  <input [(ngModel)]="loginModel.password" type="password" class="form-control custom-input" id="password">
+  <input  formControlName="password" type="password" class="form-control custom-input" id="password">
 
-  <button (click)="login()">Login</button>
+  @if(showPasswordMandatory()){
+    <p class="error-message">Password is mandatory</p>
+  }
+
+  <button type="submit">Login</button>
   <a routerLink="/register" routerLinkActive="activer" class="register-link">Not registered yet?</a>
-</div>
+</form>
+

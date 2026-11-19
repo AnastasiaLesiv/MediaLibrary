@@ -24,7 +24,6 @@
   .form-label {
     font-weight: 500;
     color: #2c6e73;
-    margin-bottom: 4px;
   }
   
   /* Інпути */
@@ -32,7 +31,6 @@
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    transition: border-color 0.3s;
   }
   
   .custom-input:focus {
@@ -50,14 +48,19 @@
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
   }
   
   button:hover {
     background-color: #b39ddb;
   }
 
-.register-link{
-  
+.error-message{
+  color: red;
+  font-size: small;
+  font-weight: 500;
 }
-  
+
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+  background-color: #ffe6e6;
+}

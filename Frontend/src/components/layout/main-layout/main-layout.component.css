@@ -1,21 +1,52 @@
-.break-line {
-  border-left: 2px solid rgb(208, 171, 171);
+:host {
+  display: block;
+  min-height: 100vh;
 }
 
-.apps-container{
+.main-layout {
   display: flex;
-  height: calc(100% - 70px);
-  gap: 16px;
-  padding: 30px 30px 30px 30px;
+  flex-direction: column;
+  min-height: 100vh;
   background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);
 }
 
-.wildcard-component{
-  width: 100%;
+.apps-container {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px;
 }
 
-.folders-list-component{
-  width: 25%;
+.folders-list-component {
+  flex: 0 0 250px;
+  width: 250px;
+  position: sticky;
+  top: 20px;
 }
 
+.break-line {
+  display: none;
+}
 
+.wildcard-component {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1000px) {
+  .apps-container {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .folders-list-component {
+    position: static;
+    flex: none;
+    width: 100%;
+  }
+
+  .wildcard-component {
+    width: 100%;
+  }
+}

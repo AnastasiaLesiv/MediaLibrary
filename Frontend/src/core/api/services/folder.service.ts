@@ -28,6 +28,14 @@ export class FolderService {
     return this.client.post(`${this.baseUrl}/api/Folders`, folder, this.httpOptions)
   }
 
+  putFolder(id: number, name: string): Observable<void> {
+    return this.client.put<void>(
+      `${this.baseUrl}/api/Folders/${id}`,
+      { name },
+      this.httpOptions
+    );
+  }
+
   deleteFolder(id: number){
     return this.client.delete(`${this.baseUrl}/api/Folders/${id}`)
   }

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
 import { CreateFolder } from '../../../../core/interfaces/folders/create-folder.model';
 import { FolderService } from '../../../../core/api/services/folder.service';
 import { AppGlobalConstants } from '../../../../core/global/global-variables';
@@ -10,32 +11,41 @@ import { AppGlobalConstants } from '../../../../core/global/global-variables';
   templateUrl: './create-folder-form.component.html',
   styleUrls: ['./create-folder-form.component.css']
 })
-export class CreateFolderFormComponent implements OnInit {
-  folderModel: CreateFolder;
+export class CreateFolderFormComponent {
   @Output() successfullCreate = new EventEmitter<boolean>();
   @Output() hideFolderForm = new EventEmitter<boolean>();
 
-  private userId = sessionStorage.getItem(AppGlobalConstants.sessionStorageUserId)!;
+  folderModel: CreateFolder = {
+    name: '',
+    userId: sessionStorage.getItem(
+      AppGlobalConstants.sessionStorageUserId
+    )!
+  };
 
-  constructor(private folderService: FolderService) { 
-    this.folderModel = {
-      name: undefined,
-      userId: this.userId
+  isSaving = false;
+
+  constructor(private folderService: FolderService) {}
+
+  createFolder(): void {
+    const name = this.folderModel.name?.trim() ?? '';
+
+    if (!name || name.length > 100 || this.isSaving) {
+      return;
     }
-  }
 
-  ngOnInit() {
-  }
+    this.isSaving = true;
 
-  createFolder(){
-    this.folderService.postFolder(this.folderModel)
-      .subscribe(response => {
-        this.hideFolder();
-        this.successfullCreate.emit()
+    this.folderService.postFolder({ ...this.folderModel, name })
+      .pipe(finalize(() => this.isSaving = false))
+      .subscribe({
+        next: () => this.successfullCreate.emit(true),
+        error: () => {}
       });
   }
 
-  hideFolder(){
-    this.hideFolderForm.emit();
+  hideFolder(): void {
+    if (!this.isSaving) {
+      this.hideFolderForm.emit(true);
+    }
   }
 }

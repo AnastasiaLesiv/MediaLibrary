@@ -3,6 +3,7 @@ export interface Audio {
     title: string
     artist: string
     format: string
+    resourceUrl?: string | null;
     duration: number
     uploadDate: Date
     categoryId: number

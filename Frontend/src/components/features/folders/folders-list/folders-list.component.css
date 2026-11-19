@@ -1,35 +1,46 @@
-.folders-list{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    height: 100%;
+.folders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.create-folder-form{
-    position: absolute;
-    border-radius: 8px;
+.folders-list-data {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
 }
 
-.button-folder{
-    background-color: #f1a39a00;
-    color: #e37d72;
-    border: 1px solid #dd6456;
-    border-radius: 8px;
-    padding: 10px 20px;
-}
-.button-folder:hover{
-    background-color: #f1a39a;
-    color: white;
-    border: 1px solid #dd645600;
-}
-
-.folders-list-data{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    overflow-y: scroll;
+.button-folder {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #c8dcda;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #285d61;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  transition: background-color 0.15s;
 }
 
-.folders-list-data::-webkit-scrollbar{
-    display: none;
+.button-folder:hover {
+  background: #ffffff;
+  border-color: #74a8a8;
+}
+
+.button-folder.active {
+  background: #2c6e73;
+  border-color: #2c6e73;
+  color: #ffffff;
+}
+
+@media (max-width: 1000px) {
+  .folders-list-data {
+    max-height: 200px;
+  }
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateVideo } from '../../interfaces/mediafiles/create-video,model';
+import { CreateVideo } from '../../interfaces/mediafiles/create-video.model';
 import { Observable } from 'rxjs';
 import { VideoUpdate } from '../../interfaces/mediafiles/video-update.model';
 import { Video } from '../../interfaces/mediafiles/video.model';

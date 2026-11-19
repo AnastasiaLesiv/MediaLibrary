@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MediaFilesTableComponent } from '../../generic/media-files-table/media-files-table.component';
 import { MediaFile } from '../../../../core/interfaces/mediafiles/media-file.model';
 import { Folder } from '../../../../core/interfaces/folders/folder.model';
@@ -13,10 +13,11 @@ import { Video } from '../../../../core/interfaces/mediafiles/video.model';
 import { Ebook } from '../../../../core/interfaces/mediafiles/ebook.model';
 import { MediaType } from '../../../../core/enums/media-type';
 import { transformToMediaFileList } from '../../../../core/helpers/to-mediafile.helper';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-folder-files-view',
-  imports: [MediaFilesTableComponent, NgbDropdownModule],
+  imports: [MediaFilesTableComponent, NgbDropdownModule, FormsModule],
   templateUrl: './folder-files-view.component.html',
   styleUrls: ['./folder-files-view.component.css']
 })
@@ -26,6 +27,8 @@ export class FolderFilesViewComponent implements OnInit, OnChanges {
   userFolders: Folder[] = [];
 
   folderName?: string;
+  editedFolderName: string = '';
+  isRenaming: boolean = false;
   
   
   constructor(private folderService: FolderService, 
@@ -55,6 +58,45 @@ export class FolderFilesViewComponent implements OnInit, OnChanges {
         this.mediaFiles = transformToMediaFileList(response.audios!, response.images!, response.videos!, response.ebooks!);
       });
     this.getUserFoldersData();
+  }
+
+  openRenameFolder(content: TemplateRef<any>): void {
+    this.editedFolderName = this.folderName ?? '';
+
+    this.modalService.open(content, {
+      centered: true,
+      ariaLabelledBy: 'rename-folder-title'
+    });
+  }
+
+  saveFolderName(modal: NgbActiveModal): void {
+    const name = this.editedFolderName.trim();
+
+    if (
+      this.id === undefined ||
+      !name ||
+      name.length > 100 ||
+      this.isRenaming
+    ) {
+      return;
+    }
+
+    this.isRenaming = true;
+
+    this.folderService.putFolder(this.id, name).subscribe({
+      next: () => {
+        this.folderName = name;
+        this.isRenaming = false;
+
+        this.reloadFoldersService.reloadFolder();
+        this.getUserFoldersData();
+
+        modal.close();
+      },
+      error: () => {
+        this.isRenaming = false;
+      }
+    });
   }
 
   deleteFolder(){

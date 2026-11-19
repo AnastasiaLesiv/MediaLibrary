@@ -6,13 +6,18 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { acessTokenInterceptor } from '../core/interceptors/acess-token.interceptor';
+import { errorInterceptor } from '../core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = { 
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes, withComponentInputBinding()), 
-    provideHttpClient(withInterceptors([acessTokenInterceptor])),
+    provideHttpClient(withInterceptors([acessTokenInterceptor, errorInterceptor])),
     provideAnimations(), 
-    provideToastr()
+    provideToastr({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      enableHtml: false
+    })
   ]
 };

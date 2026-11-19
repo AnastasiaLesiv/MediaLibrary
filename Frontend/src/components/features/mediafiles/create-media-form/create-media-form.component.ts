@@ -11,7 +11,7 @@ import { ImageService } from '../../../../core/api/services/image.service';
 import { AudioService } from '../../../../core/api/services/audio.service';
 import { VideoService } from '../../../../core/api/services/video.service';
 import { EbookService } from '../../../../core/api/services/ebook.service';
-import { CreateVideo } from '../../../../core/interfaces/mediafiles/create-video,model';
+import { CreateVideo } from '../../../../core/interfaces/mediafiles/create-video.model';
 import { CreateEbook } from '../../../../core/interfaces/mediafiles/create-ebook.model';
 import { CreateAudio } from '../../../../core/interfaces/mediafiles/create-audio.model';
 import { CreateImage } from '../../../../core/interfaces/mediafiles/create-image.model';
@@ -36,6 +36,7 @@ export class CreateMediaFormComponent implements OnInit {
   title?: string = undefined;
   author?: string = undefined;
   format?: string = undefined;
+  resourceUrl: string = '';
   duration?: number = undefined;
 
   mediaTypes = MediaType;
@@ -104,11 +105,14 @@ export class CreateMediaFormComponent implements OnInit {
   }
 
   saveMediaFile(mediaType: MediaType): void{
+    const resourceUrl = this.resourceUrl.trim() || null
+
     switch(mediaType){
       case this.mediaTypes.Audio:
         this.audioModel.title = this.title;
         this.audioModel.duration = this.duration;
         this.audioModel.format = this.format;
+        this.audioModel.resourceUrl = resourceUrl;
         this.getCategoryId().subscribe(response => {
           this.audioModel.categoryId = response;
           this.audioService.postAudio(this.audioModel).subscribe(response => this.goBack());
@@ -118,6 +122,7 @@ export class CreateMediaFormComponent implements OnInit {
         this.imageModel.title = this.title;
         this.imageModel.author = this.author;
         this.imageModel.format = this.format;
+        this.imageModel.resourceUrl = resourceUrl;
         this.getCategoryId().subscribe(response => {
           this.imageModel.categoryId = response;
           this.imageService.postImage(this.imageModel).subscribe(response => this.goBack());
@@ -128,6 +133,7 @@ export class CreateMediaFormComponent implements OnInit {
         this.videoModel.author = this.author;
         this.videoModel.duration = this.duration;
         this.videoModel.format = this.format;
+        this.videoModel.resourceUrl = resourceUrl;
         this.getCategoryId().subscribe(response => {
           this.videoModel.categoryId = response;
           this.videoService.postVideo(this.videoModel).subscribe(response => this.goBack());
@@ -137,6 +143,7 @@ export class CreateMediaFormComponent implements OnInit {
         this.ebookModel.title = this.title;
         this.ebookModel.author = this.author;
         this.ebookModel.format = this.format;
+        this.ebookModel.resourceUrl = resourceUrl;
         this.getCategoryId().subscribe(response=>{
           this.ebookModel.categoryId = response;
           this.ebookService.postEbook(this.ebookModel).subscribe(response => this.goBack());

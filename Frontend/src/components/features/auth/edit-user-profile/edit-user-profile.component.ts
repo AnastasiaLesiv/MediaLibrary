@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserUpdate } from '../../../../core/interfaces/auth/user-update.model';
 import { AppGlobalConstants } from '../../../../core/global/global-variables';
 import { HideShowFoldersListService } from '../../../../core/services/component-behaviours/hide-show-folders-list.service';
+import { UpdateFullNameService } from '../../../../core/services/component-behaviours/update-full-name.service';
 
 @Component({
   selector: 'app-edit-user-profile',
@@ -19,6 +20,7 @@ export class EditUserProfileComponent implements OnInit {
 
   constructor(private router: Router, 
               private userService: UsersService,
+              private updateName: UpdateFullNameService,
               private editFormService: HideShowFoldersListService) {
     this.userModel ={
       userName: undefined,
@@ -50,6 +52,7 @@ export class EditUserProfileComponent implements OnInit {
 
   updateProfile(){
     this.userService.putUser(this.userId, this.userModel).subscribe(responde => {
+      this.updateName.getUpdatedName(this.userModel.fullName!);
       this.close();
     })
   }

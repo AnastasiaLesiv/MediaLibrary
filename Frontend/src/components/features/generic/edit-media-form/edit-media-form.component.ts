@@ -37,6 +37,7 @@ export class EditMediaFormComponent implements OnInit {
   title?: string = undefined;
   author?: string = undefined;
   format?: string = undefined;
+  resourceUrl: string = '';
   duration?: number = undefined;
   customCategory: string = "";
   categoryModel: CreateCategoryDto;
@@ -96,6 +97,7 @@ export class EditMediaFormComponent implements OnInit {
         this.audioService.getAudioByid(this.id!)
           .subscribe(response => {
             this.title = response.title;
+            this.resourceUrl = response.resourceUrl ?? '';
             this.format = response.format;
             this.duration = response.duration;
             this.customCategory = response.categoryName;
@@ -113,6 +115,7 @@ export class EditMediaFormComponent implements OnInit {
         this.imageService.getImageByid(this.id!)
           .subscribe(response =>{
             this.title = response.title;
+            this.resourceUrl = response.resourceUrl ?? '';
             this.author = response.author;
             this.format = response.format;
             this.customCategory = response.categoryName;
@@ -129,6 +132,7 @@ export class EditMediaFormComponent implements OnInit {
         this.videoService.getVideoByid(this.id!)
           .subscribe(response =>{
             this.title = response.title;
+            this.resourceUrl = response.resourceUrl ?? '';
             this.author = response.author;
             this.format = response.format;
             this.duration = response.duration;
@@ -147,6 +151,7 @@ export class EditMediaFormComponent implements OnInit {
         this.ebookService.getEbookByid(this.id!)
           .subscribe(response => {
             this.title = response.title;
+            this.resourceUrl = response.resourceUrl ?? '';
             this.author = response.author;
             this.format = response.format;
             this.customCategory = response.categoryName;
@@ -163,10 +168,13 @@ export class EditMediaFormComponent implements OnInit {
   }
 
   updateMediaFile(mediaType: MediaType){
+    const resourceUrl = this.resourceUrl.trim() || null;
+
     switch(mediaType){
       case this.mediaTypes.Audio:
         this.audioModel.duration = this.duration;
         this.audioModel.format = this.format;
+        this.audioModel.resourceUrl = resourceUrl;
         this.audioModel.title = this.title;
         this.getCategoryId().subscribe(response => {
           this.audioModel.categoryId = response;
@@ -178,8 +186,10 @@ export class EditMediaFormComponent implements OnInit {
         });
         break;
       case  this.mediaTypes.Video:
+        this.videoModel.title = this.title;
         this.videoModel.author = this.author;
         this.videoModel.format = this.format;
+        this.videoModel.resourceUrl = resourceUrl;
         this.videoModel.duration = this.duration;
         this.getCategoryId().subscribe(response => {
           this.videoModel.categoryId = response;
@@ -193,6 +203,7 @@ export class EditMediaFormComponent implements OnInit {
       case this.mediaTypes.Ebook:
         this.ebookModel.author = this.author;
         this.ebookModel.format = this.format;
+        this.ebookModel.resourceUrl = resourceUrl;
         this.ebookModel.title = this.title;
         this.getCategoryId().subscribe(response => {
           this.ebookModel.categoryId = response;
@@ -206,6 +217,7 @@ export class EditMediaFormComponent implements OnInit {
       case this.mediaTypes.Image:
         this.imageModel.author = this.author;
         this.imageModel.format = this.format;
+        this.imageModel.resourceUrl = resourceUrl;
         this.imageModel.title = this.title;
         this.getCategoryId().subscribe(response => {
           this.imageModel.categoryId = response;

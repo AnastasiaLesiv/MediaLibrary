@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CreateFolderFormComponent } from '../create-folder-form/create-folder-form.component';
+import {
+  Component, EventEmitter, Input, Output, TemplateRef
+} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateFolderFormComponent } from '../create-folder-form/create-folder-form.component';
 import { Folder } from '../../../../core/interfaces/folders/folder.model';
 
 @Component({
@@ -9,26 +12,24 @@ import { Folder } from '../../../../core/interfaces/folders/folder.model';
   templateUrl: './folders-list.component.html',
   styleUrls: ['./folders-list.component.css']
 })
-export class FoldersListComponent implements OnInit {
-  @Input() foldersList: Folder[] = []
-  @Output() refreshFolderData= new EventEmitter<boolean>();
-  showForm: boolean = false
+export class FoldersListComponent {
+  @Input() foldersList: Folder[] = [];
+  @Output() refreshFolderData = new EventEmitter<boolean>();
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private modalService: NgbModal
+  ) {}
 
-  ngOnInit(): void {
+  showFolderCreationForm(content: TemplateRef<any>): void {
+    this.modalService.open(content, {
+      centered: true,
+      ariaLabelledBy: 'create-folder-title'
+    });
   }
 
-  showFolderCreationForm(){
-    this.showForm = true
-  }
-
-  refreshFolderList(){
+  refreshFolderList(): void {
     this.refreshFolderData.emit();
-    this.router.navigateByUrl("");
-  }
-
-  hideFolderForm(){
-    this.showForm = false;
+    this.router.navigateByUrl('');
   }
 }

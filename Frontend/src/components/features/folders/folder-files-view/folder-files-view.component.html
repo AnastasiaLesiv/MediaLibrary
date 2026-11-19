@@ -1,21 +1,39 @@
-<app-media-files-table 
-	[tablemediaFiles]="mediaFiles" 
-	[folderList]="userFolders" 
-	(refreshMediaFilesTable)="reloadMediaFiles()">
-	<div ngbDropdown class="d-inline-block">
-		<button class="folder-name-button" id="mediaTypeFilter" ngbDropdownToggle>
-			{{folderName}}
-		</button>
-		<div ngbDropdownMenu aria-labelledby="mediaTypeFilter">
-			<button ngbDropdownItem (click)="open(content)">Delete folder</button> 
-		</div>
-	</div>
+<app-media-files-table
+    [tablemediaFiles]="mediaFiles"
+    [folderList]="userFolders"
+    (refreshMediaFilesTable)="reloadMediaFiles()">
+
+    <div ngbDropdown class="d-inline-block" >
+        <button type="button" class="folder-name-button" id="folderActions" ngbDropdownToggle>
+            {{ folderName }}
+        </button>
+
+        <div ngbDropdownMenu class="media-actions-menu" aria-labelledby="folderActions">
+            <button
+                ngbDropdownItem
+                (click)="openRenameFolder(renameFolderModal)">
+                Rename folder
+            </button>
+
+            <button ngbDropdownItem class="menu-danger" (click)="open(content)">
+                Delete folder
+            </button>
+        </div>
+    </div>
 </app-media-files-table>
 
 <ng-template #content let-modal>
     <div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Delete folder</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+		<h4 class="modal-title" id="modal-basic-title">
+			Delete folder
+		</h4>
+
+		<button
+			type="button"
+			class="btn-close"
+			aria-label="Close"
+			(click)="modal.dismiss('Cross click')">
+		</button>
 	</div>
 	<div class="modal-body">
 		Are you sure you want to delete this folder?
@@ -24,4 +42,55 @@
 		<button #saveDeleteFolder type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Save</button>
 		<button type="button" class="btn btn-outline-danger" (click)="modal.close('Close click')">Close</button>
 	</div>
+</ng-template>
+
+<ng-template #renameFolderModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="rename-folder-title">
+            Rename folder
+        </h4>
+
+        <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            [disabled]="isRenaming"
+            (click)="modal.dismiss()">
+        </button>
+    </div>
+
+    <form (ngSubmit)="saveFolderName(modal)">
+        <div class="modal-body">
+            <label for="new-folder-name" class="form-label">
+                Folder name
+            </label>
+
+            <input
+                id="new-folder-name"
+                name="folderName"
+                class="form-control"
+                type="text"
+                maxlength="100"
+                required
+                [disabled]="isRenaming"
+                [(ngModel)]="editedFolderName">
+        </div>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-secondary"
+                [disabled]="isRenaming"
+                (click)="modal.dismiss()">
+                Cancel
+            </button>
+
+            <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="isRenaming || !editedFolderName.trim()">
+                {{ isRenaming ? 'Saving...' : 'Save' }}
+            </button>
+        </div>
+    </form>
 </ng-template>

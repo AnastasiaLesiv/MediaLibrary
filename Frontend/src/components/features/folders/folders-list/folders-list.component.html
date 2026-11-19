@@ -1,16 +1,27 @@
 <div class="folders-list">
-  <div>
-    <button type="button" class="btn btn-secondary" style="width: 100%;" (click)="showFolderCreationForm()">Create folder</button>
-    @if(showForm){
-      <app-create-folder-form class="create-folder-form" (successfullCreate)="refreshFolderList()" (hideFolderForm)="hideFolderForm()"/>
-    }
-  </div>
- 
+  <button
+    type="button"
+    class="btn btn-secondary w-100"
+    (click)="showFolderCreationForm(createFolderModal)">
+    Create folder
+  </button>
+
   <div class="folders-list-data">
     @for (item of foldersList; track item.id) {
-      <button type="button" class="button-folder" routerLink="/folderView/{{item.id}}" routerLinkActive="active">{{item.name}}</button>
-    } 
+      <button
+        type="button"
+        class="button-folder"
+        routerLink="/folderView/{{item.id}}"
+        routerLinkActive="active">
+        {{ item.name }}
+      </button>
+    }
   </div>
-   
 </div>
 
+<ng-template #createFolderModal let-modal>
+  <app-create-folder-form
+    (successfullCreate)="refreshFolderList(); modal.close()"
+    (hideFolderForm)="modal.dismiss()">
+  </app-create-folder-form>
+</ng-template>

@@ -1,13 +1,54 @@
-<div class="create-folder-form">
-  <div class="create-folder-input">
-    <div class="create-folder-input-header">
-      <label for="folder-name">Folder name</label>
-      <button class="btn btn-outline-danger btn-sm close-folder-form" (click)="hideFolder()">✕</button>
-    </div>
-    <input [(ngModel)]="folderModel.name" type="text" class="form-control" id="folder-name">
-  </div>
-  <div class="save-folder-form">
-    <button class="btn btn-outline-secondary" (click)="createFolder()">Save</button>
-  </div>
-</div>
+<form (ngSubmit)="createFolder()">
+  <div class="modal-header">
+    <h5 class="modal-title" id="create-folder-title">
+      Create folder
+    </h5>
 
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      [disabled]="isSaving"
+      (click)="hideFolder()">
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <label for="folder-name" class="form-label">
+      Folder name
+    </label>
+
+    <input
+      [(ngModel)]="folderModel.name"
+      name="folderName"
+      type="text"
+      class="form-control"
+      id="folder-name"
+      placeholder="Enter folder name"
+      maxlength="100"
+      required
+      ngbAutofocus
+      [disabled]="isSaving">
+
+    <div class="folder-hint">
+      Up to 100 characters.
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      [disabled]="isSaving"
+      (click)="hideFolder()">
+      Cancel
+    </button>
+
+    <button
+      type="submit"
+      class="btn save-folder-button"
+      [disabled]="isSaving || !folderModel.name?.trim()">
+      {{ isSaving ? 'Saving…' : 'Create folder' }}
+    </button>
+  </div>
+</form>
